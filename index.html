@@ -13,6 +13,7 @@
 :root{
   --bg1:#f6efff;--bg2:#ffeef8;--ink:#2d1b4e;--muted:#6f5a92;--card:#ffffff;--line:#eadcff;
   --pur:#7b3fd0;--pur2:#a970ff;--pink:#ff6fb5;--mint:#2bb5a3;--star:#ffb520;--bad:#e5484d;--good:#1e9e6a;
+  --plus:#16a36b;--minus:#e0447f;
   --r:22px;--shadow:0 6px 0 rgba(123,63,208,.12),0 10px 24px rgba(123,63,208,.12);
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -21,21 +22,22 @@ body{font-family:"Baloo 2",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
   background:linear-gradient(160deg,var(--bg1),var(--bg2) 60%,#eafaf7);min-height:100vh;font-size:20px;line-height:1.3;
   padding-bottom:calc(92px + env(safe-area-inset-bottom))}
 button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
+button:disabled{opacity:.5;cursor:not-allowed}
 .wrap{max-width:860px;margin:0 auto;padding:0 16px}
 /* top bar */
 .top{position:sticky;top:0;z-index:20;background:linear-gradient(90deg,#7b3fd0,#b25cf0 60%,#ff6fb5);color:#fff;
   padding:calc(8px + env(safe-area-inset-top)) 0 10px;box-shadow:0 4px 14px rgba(123,63,208,.25)}
-.top .wrap{display:flex;align-items:center;gap:12px}
+.top .wrap{display:flex;align-items:center;gap:10px}
 .lvl{flex:1;min-width:0}
 .lvl b{font-size:18px;letter-spacing:.5px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .bar{height:12px;border-radius:9px;background:rgba(255,255,255,.3);overflow:hidden;margin-top:4px}
 .bar i{display:block;height:100%;background:linear-gradient(90deg,#ffe36e,#ffb520);border-radius:9px;transition:width .5s}
-.starbox{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.2);border-radius:16px;padding:4px 12px;font-weight:800;font-size:22px}
+.starbox{display:flex;align-items:center;gap:4px;background:rgba(255,255,255,.2);border-radius:16px;padding:4px 10px;font-weight:800;font-size:20px}
 .papas{font-size:14px;font-weight:700;background:rgba(255,255,255,.18);border-radius:14px;padding:6px 10px;color:#fff}
 /* tabs */
 nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:30;background:#fff;border-top:2px solid var(--line);
-  display:grid;grid-template-columns:repeat(3,1fr);padding:6px 8px calc(6px + env(safe-area-inset-bottom))}
-nav.tabs button{display:flex;flex-direction:column;align-items:center;gap:0;padding:6px 4px;border-radius:16px;font-weight:700;font-size:16px;color:var(--muted)}
+  display:grid;grid-template-columns:repeat(4,1fr);padding:6px 8px calc(6px + env(safe-area-inset-bottom))}
+nav.tabs button{display:flex;flex-direction:column;align-items:center;gap:0;padding:6px 4px;border-radius:16px;font-weight:700;font-size:15px;color:var(--muted)}
 nav.tabs button .ic{font-size:28px;line-height:1.1}
 nav.tabs button.on{background:#f1e6ff;color:var(--pur)}
 /* cards */
@@ -51,6 +53,7 @@ h2{font-size:24px;margin:0 0 8px}
 .btn:active{transform:translateY(3px);box-shadow:0 2px 0 #5a2aa3}
 .btn.pink{background:var(--pink);box-shadow:0 5px 0 #c94489}
 .btn.mint{background:var(--mint);box-shadow:0 5px 0 #1d8577}
+.btn.gold{background:#ffb520;color:#4a2c00;box-shadow:0 5px 0 #c98400}
 .btn.ghost{background:#fff;color:var(--pur);box-shadow:0 4px 0 var(--line);border:2px solid var(--line)}
 .btn.small{font-size:17px;padding:8px 14px;min-height:44px}
 /* missions */
@@ -64,24 +67,35 @@ h2{font-size:24px;margin:0 0 8px}
 .m2{background:linear-gradient(120deg,#7b3fd0,#a970ff)}
 .m3{background:linear-gradient(120deg,#22a596,#5fd6c4)}
 .mev{background:linear-gradient(120deg,#ff9f1c,#ffc857)}
-.dots{display:flex;gap:6px}
-.dots i{width:16px;height:16px;border-radius:50%;background:#e8ddff;display:block}
+.mx{background:linear-gradient(120deg,#5b7cfa,#b06bff 55%,#ff6fb5)}
+.chest{display:flex;gap:14px;align-items:center;background:#fff7d6;border:3px dashed #ffc233;border-radius:var(--r);padding:14px;margin:12px 0}
+.chest .em{font-size:52px}
+.dots{display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end}
+.dots i{width:14px;height:14px;border-radius:50%;background:#e8ddff;display:block}
 .dots i.ok{background:var(--good)}.dots i.no{background:#ffb3b6}.dots i.now{background:var(--pur2);box-shadow:0 0 0 3px #e3d0ff}
 .event{display:flex;gap:12px;align-items:center}
 .cal{width:62px;flex:none;text-align:center;border-radius:14px;background:#fff3dc;color:#a35b00;font-weight:800;line-height:1;padding:8px 0}
 .cal b{font-size:26px;display:block}
 /* game */
 .q{text-align:center}
+.gtop{display:flex;align-items:center;gap:10px}
+.mini{width:62px;flex:none}
+.mini.hop{animation:hop .6s}
+@keyframes hop{0%,100%{transform:translateY(0)}40%{transform:translateY(-22px) rotate(-6deg)}70%{transform:translateY(0) rotate(4deg)}}
 .qtitle{font-size:28px;font-weight:800;margin:6px 0 4px}
 .bignum{font-size:96px;font-weight:800;line-height:1;margin:10px 0;color:var(--pur)}
 .opts{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:14px}
 .opts.three{grid-template-columns:repeat(3,1fr)}
+.opts.one{grid-template-columns:1fr}
 .opts.words .opt{font-size:24px}
 .opt{background:#fff;border:3px solid var(--line);border-radius:20px;min-height:88px;font-size:42px;font-weight:800;color:var(--ink);box-shadow:0 5px 0 var(--line);padding:6px}
 .opt:active{transform:translateY(3px);box-shadow:0 2px 0 var(--line)}
 .opt.good{background:#dcf7ea;border-color:var(--good);color:var(--good)}
 .opt.bad{background:#ffe5e6;border-color:var(--bad);color:var(--bad);animation:shake .35s}
 .opt.show{outline:4px dashed var(--good)}
+.opt.plus{color:var(--plus);border-color:#bfead6;font-size:56px;line-height:1}
+.opt.minus{color:var(--minus);border-color:#f8c8da;font-size:56px;line-height:1}
+.opt small{display:block;font-size:18px;font-weight:700}
 @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
 .how{background:#fff7d6;border:2px solid #ffd970;border-radius:18px;padding:10px 14px;text-align:left;font-size:18px;display:flex;gap:10px;align-items:center}
 .how .t{flex:1}
@@ -90,17 +104,21 @@ h2{font-size:24px;margin:0 0 8px}
 .hint p{margin:4px 0 8px;font-size:20px}
 .visual{margin:10px auto 0;max-width:100%;overflow-x:auto}
 .visual svg{max-width:100%;height:auto}
+.eq{display:flex;justify-content:center;align-items:center;gap:10px;font-size:64px;font-weight:800;color:var(--ink);flex-wrap:wrap;line-height:1}
+.op{display:inline-grid;justify-items:center;line-height:.9;font-size:64px}
+.op small{font-size:16px;font-weight:800;letter-spacing:.5px}
+.op.plus{color:var(--plus)}.op.minus{color:var(--minus)}.op.eqs{color:var(--muted)}
+.qbox{display:inline-grid;place-items:center;min-width:76px;height:76px;border:4px dashed var(--pink);border-radius:18px;color:var(--pink)}
 .vert{display:inline-grid;grid-template-columns:repeat(3,64px);font-size:56px;font-weight:800;line-height:1.15;text-align:center;margin:6px auto}
 .vert .h{font-size:18px;color:var(--muted)}
 .vert .l{border-top:5px solid var(--ink);grid-column:1/4;height:4px}
-.vert .q2{color:var(--pink)}
 .cmp{display:flex;justify-content:center;align-items:center;gap:16px;font-size:80px;font-weight:800;color:var(--pur)}
 .cmp .box{width:96px;height:96px;border:4px dashed var(--pink);border-radius:20px}
 .ans{display:inline-block;min-width:150px;min-height:84px;border:4px solid var(--pur2);border-radius:20px;font-size:60px;font-weight:800;line-height:76px;padding:0 14px;background:#fff;color:var(--pur)}
 .pad{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:360px;margin:14px auto 0}
 .pad button{min-height:70px;border-radius:18px;background:#f1e6ff;font-size:34px;font-weight:800;color:var(--ink);box-shadow:0 4px 0 #dcc8ff}
 .pad button.okb{background:var(--pur);color:#fff;box-shadow:0 4px 0 #5a2aa3}
-.slots{display:flex;justify-content:center;gap:10px;margin:12px 0}
+.slots{display:flex;justify-content:center;gap:10px;margin:12px 0;flex-wrap:wrap}
 .slots span{width:84px;height:84px;border-radius:18px;border:3px dashed var(--pur2);display:grid;place-items:center;font-size:40px;font-weight:800;color:var(--pur)}
 .items{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
 .items button{width:96px;height:96px;border-radius:20px;background:#fff;border:3px solid var(--line);font-size:42px;font-weight:800;box-shadow:0 5px 0 var(--line)}
@@ -108,17 +126,51 @@ h2{font-size:24px;margin:0 0 8px}
 .items button.bad{animation:shake .35s;border-color:var(--bad)}
 .ordrow{display:flex;justify-content:center;gap:4px;flex-wrap:nowrap;margin:10px 0}
 .ordrow button{font-size:40px;width:68px;height:76px;border-radius:16px;background:#fff;border:3px solid var(--line);flex:none}
-.ordrow button.good{background:#dcf7ea;border-color:var(--good)}
-.ordrow button.bad{background:#ffe5e6;border-color:var(--bad);animation:shake .35s}
-.ordrow button.show{outline:4px dashed var(--good)}
+.ordrow button.good,.chart button.good,.nline button.good{background:#dcf7ea;border-color:var(--good)}
+.ordrow button.bad,.chart button.bad,.nline button.bad{background:#ffe5e6;border-color:var(--bad);animation:shake .35s}
+.ordrow button.show,.chart button.show,.nline button.show{outline:4px dashed var(--good)}
+.chart{display:grid;grid-template-columns:repeat(10,1fr);gap:4px;margin:12px auto 0;max-width:620px}
+.chart button{aspect-ratio:1;border-radius:10px;background:#fff;border:2px solid var(--line);font-size:20px;font-weight:800;padding:0}
+.chart button:nth-child(20n+11),.chart button:nth-child(20n+12),.chart button:nth-child(20n+13),.chart button:nth-child(20n+14),.chart button:nth-child(20n+15),.chart button:nth-child(20n+16),.chart button:nth-child(20n+17),.chart button:nth-child(20n+18),.chart button:nth-child(20n+19),.chart button:nth-child(20n+20){background:#f8f3ff}
+.nline{position:relative;display:flex;justify-content:space-between;gap:2px;margin:52px 0 6px;padding-top:6px}
+.nline:before{content:"";position:absolute;left:0;right:0;top:0;height:5px;border-radius:3px;background:var(--ink)}
+.nline button{flex:1;min-width:0;height:56px;border-radius:12px;background:#fff;border:2px solid var(--line);font-size:22px;font-weight:800;padding:0;position:relative}
+.nline button .u{position:absolute;top:-50px;left:50%;transform:translateX(-50%);font-size:34px}
+.tenf{display:inline-grid;grid-template-columns:repeat(5,44px);gap:6px;padding:8px;border:3px solid var(--ink);border-radius:12px;background:#fff;margin:8px auto}
+.tenf i{width:44px;height:44px;border-radius:50%;border:2px dashed #cdbdf0;display:block}
+.tenf i.on{background:var(--pink);border:2px solid #c94489}
 .emo-group{font-size:40px;letter-spacing:2px;line-height:1.2}
+.emo-group .gone{opacity:.3;text-decoration:line-through}
 .story{font-size:24px;font-weight:700;background:#fff5fb;border-radius:18px;padding:12px;margin-top:8px}
+.picto{display:grid;gap:6px;justify-content:center;margin:8px auto;text-align:left}
+.picto div{display:flex;gap:8px;align-items:center;font-size:34px;border-bottom:2px solid var(--line);padding-bottom:4px}
+.pattern{font-size:46px;letter-spacing:4px;margin:10px 0}
+/* arcade */
+.arena{position:relative;height:380px;border-radius:20px;background:linear-gradient(180deg,#2b1a5e,#7b3fd0 70%,#ff8fc7);overflow:hidden;margin-top:12px}
+.arena .fall{position:absolute;top:-90px;width:86px;height:86px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#fff7b0,#ffc233 60%,#f2a900);color:#4a2c00;font-size:34px;font-weight:800;box-shadow:0 0 18px #ffe36e;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(480px)}}
+.arena .fall.bad{background:#ffb3b6;animation-play-state:paused}
+.arena .fall.good{background:#7ee2b8;animation-play-state:paused}
+.arena .bub{position:absolute;width:88px;height:88px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#fff,#bfe9ff 40%,#8fd1ff 70%,#a970ff);font-size:30px;font-weight:800;color:#2d1b4e;border:2px solid rgba(255,255,255,.8);animation:float 3s ease-in-out infinite}
+.arena .bub.pop{animation:pop .3s forwards}
+.arena .bub.bad{animation:shake .35s}
+@keyframes float{50%{transform:translateY(-10px)}}
+@keyframes pop{to{transform:scale(1.6);opacity:0}}
+.memo{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px}
+.memo button{aspect-ratio:3/4;border-radius:16px;font-size:26px;font-weight:800;background:linear-gradient(135deg,#a970ff,#ff6fb5);color:transparent;box-shadow:0 4px 0 #c9a8ff;position:relative}
+.memo button:before{content:"🦄";position:absolute;inset:0;display:grid;place-items:center;font-size:34px;color:#fff}
+.memo button.up{background:#fff;color:var(--ink);border:3px solid var(--line)}
+.memo button.up:before,.memo button.done:before{content:""}
+.memo button.done{background:#dcf7ea;color:var(--good);border:3px solid var(--good)}
 /* end + celebrate */
 .celebrate{position:fixed;inset:0;z-index:60;display:grid;place-items:center;background:rgba(45,27,78,.45);padding:16px}
 .celebrate .card{max-width:520px;width:100%;text-align:center}
 .spark{position:fixed;pointer-events:none;z-index:70;font-size:32px;animation:fly 1s ease-out forwards}
 @keyframes fly{from{opacity:1;transform:translate(0,0) scale(.6)}to{opacity:0;transform:translate(var(--dx),var(--dy)) scale(1.3)}}
+.confetti{position:fixed;top:-20px;z-index:75;pointer-events:none;font-size:26px;animation:drop linear forwards}
+@keyframes drop{to{transform:translateY(110vh) rotate(540deg)}}
 .toast{position:fixed;left:50%;bottom:110px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 18px;border-radius:16px;z-index:80;font-weight:700;font-size:18px}
+.sticker-new{font-size:96px;line-height:1;animation:hop .8s 2}
 /* games grid */
 .island h2{display:flex;gap:8px;align-items:center}
 .games{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
@@ -126,25 +178,40 @@ h2{font-size:24px;margin:0 0 8px}
 .game b{display:block;font-size:20px}
 .game span{font-size:15px;color:var(--muted)}
 .game .st{font-size:14px;color:var(--star);font-weight:800}
+.game.magic{background:linear-gradient(135deg,#fff,#fff0fa);border-color:#ffc6e4}
 /* unicorn page */
 .uni{display:grid;place-items:center}
-.uni svg{width:min(360px,90%);height:auto}
+.uni svg{width:min(360px,92%);height:auto}
+.subtabs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}
+.subtabs button{border-radius:16px;padding:10px 6px;background:#fff;border:3px solid var(--line);font-weight:800;font-size:18px}
+.subtabs button.on{border-color:var(--pur);background:#f1e6ff;color:var(--pur)}
 .items-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
 .item{border:3px solid var(--line);border-radius:18px;padding:10px;background:#fff;text-align:left;font-size:17px}
 .item.lock{opacity:.55;background:#f7f3ff}
 .item.on{border-color:var(--pur);background:#f6efff}
 .item b{display:block;font-size:19px}
+.item .price{font-weight:800;color:#7a4b00}
+.album{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.stk{border-radius:18px;background:#fff;border:3px solid var(--line);text-align:center;padding:8px 4px;font-size:14px;font-weight:700}
+.stk .e{font-size:44px;line-height:1.1;display:block}
+.stk.no{background:#f5f0ff;color:#b9a8d9}
+.stk.no .e{filter:grayscale(1) opacity(.25)}
 table.prog{width:100%;border-collapse:collapse;font-size:16px}
 table.prog td,table.prog th{padding:6px;border-bottom:1px solid var(--line);text-align:left}
 input[type=text],input[type=date],select{font:inherit;font-size:18px;padding:8px 10px;border-radius:12px;border:2px solid var(--line);width:100%;background:#fff;color:var(--ink)}
 label.f{display:grid;gap:4px;font-size:16px;color:var(--muted)}
 .tag{display:inline-block;font-size:14px;font-weight:700;padding:2px 10px;border-radius:999px;background:#f1e6ff;color:var(--pur)}
 @media (max-width:520px){
-  .bignum{font-size:76px}.opt{min-height:76px;font-size:34px}.opts.words .opt{font-size:20px}
-  .items button{width:72px;height:72px;font-size:32px}.slots span{width:66px;height:66px;font-size:30px}
+  .bignum{font-size:72px}.opt{min-height:76px;font-size:34px}.opts.words .opt{font-size:20px}
+  .items button{width:72px;height:72px;font-size:32px}.slots span{width:60px;height:60px;font-size:28px}
   .ordrow button{width:30px;height:52px;font-size:22px;border-radius:10px}
   .vert{grid-template-columns:repeat(3,50px);font-size:44px}
   .games,.items-grid{grid-template-columns:1fr}
+  .album{grid-template-columns:repeat(3,1fr)}
+  .eq,.op{font-size:46px}.qbox{min-width:58px;height:58px}
+  .chart button{font-size:14px;border-radius:7px}
+  .nline button{font-size:15px;height:46px}
+  .arena .fall,.arena .bub{width:70px;height:70px;font-size:26px}
   h1{font-size:28px}
 }
 </style>
@@ -152,14 +219,16 @@ label.f{display:grid;gap:4px;font-size:16px;color:var(--muted)}
 <body>
 <header class="top"><div class="wrap">
   <div class="lvl"><b id="hudLvl">POTRILLO</b><div class="bar"><i id="hudBar" style="width:0%"></i></div></div>
-  <div class="starbox"><span>⭐</span><span id="hudStars">0</span></div>
+  <div class="starbox" title="Estrellas"><span>⭐</span><span id="hudStars">0</span></div>
+  <div class="starbox" title="Gemas"><span>💎</span><span id="hudGems">0</span></div>
   <button class="papas" id="hudPapas" aria-label="Panel de papás">Papás</button>
 </div></header>
 <main class="wrap" id="main"></main>
 <nav class="tabs" aria-label="Secciones">
   <button data-view="hoy"><span class="ic">🌈</span>Hoy</button>
   <button data-view="juegos"><span class="ic">🏰</span>Juegos</button>
-  <button data-view="unicornio"><span class="ic">🦄</span>Mi unicornio</button>
+  <button data-view="magia"><span class="ic">✨</span>Magia</button>
+  <button data-view="unicornio"><span class="ic">🦄</span>Unicornio</button>
 </nav>
 <script>
 "use strict";
@@ -167,66 +236,114 @@ label.f{display:grid;gap:4px;font-size:16px;color:var(--muted)}
 const DATA={
   lastUpdate:"2026-10-25",
   events:[
-    {date:"2026-10-29",title:"Lección de Matemática",detail:"Números ascendentes y descendentes hasta el 90. Sumas y problemas de sumas.",skills:["serie","antesDespues","ordenar","suma2d","problema"]},
+    {date:"2026-10-29",title:"Lección de Matemática",detail:"Números ascendentes y descendentes hasta el 90. Sumas y problemas de sumas.",skills:["serie","antesDespues","ordenar","recta","suma2d","problema","sumaOresta"]},
     {date:"2026-10-22",title:"Lección de Matemática",detail:"Números ascendentes y descendentes. Sumas con reagrupación. Problemas a resolver.",skills:["serie","ordenar","suma2d","problema"]},
-    {date:"2026-10-08",title:"Lección de Matemática",detail:"Familias del 60, 70, 80 y 90. Series ascendentes y descendentes. Ordenar y comparar. Antes, entre y después. Descomposición. Base 10 y ábaco. Dictado de cantidades.",skills:["familia","serie","ordenar","comparar","antesDespues","descomponer","bloques","abaco","escucha"]}
+    {date:"2026-10-08",title:"Lección de Matemática",detail:"Familias del 60, 70, 80 y 90. Series ascendentes y descendentes. Ordenar y comparar. Antes, entre y después. Descomposición. Base 10 y ábaco. Dictado de cantidades.",skills:["familia","serie","ordenar","comparar","antesDespues","descomponer","bloques","abaco","dictado"]}
   ],
   temas:[
     "Secuencias y patrones","La decena: decenas puras","Sumas hasta 10 y de tres sumandos","Términos de la suma y de la resta",
     "Restas hasta 10 y en la recta numérica","Sumas en la recta numérica","Familias de números (hasta el 90)",
     "Números en ábaco y en base 10","Comparar con > < =","Ordenar de mayor a menor y de menor a mayor",
-    "Antes, entre y después","Números ordinales hasta el 10°","Sumas de dos cifras (con y sin reagrupación)","Problemas con sumas"
+    "Antes, entre y después","Números ordinales hasta el 10°","Sumas de dos cifras (con y sin reagrupación)","Problemas con sumas",
+    "El reloj (digital y analógico)","Pictogramas y gráficos de barras"
   ]
 };
-const LEVELS=[[0,"Potrillo"],[40,"Unicornio Brillante"],[110,"Unicornio Arcoíris"],[300,"Unicornio Alado"],[480,"Unicornio Real"],[750,"Reina Unicornio"]];
+const LEVELS=[[0,"Potrillo"],[40,"Unicornio Brillante"],[110,"Unicornio Arcoíris"],[300,"Unicornio Alado"],[480,"Unicornio Real"],[750,"Reina Unicornio"],[1100,"Unicornio de Cristal"],[1600,"Unicornio Estelar"],[2300,"Emperatriz del Arcoíris"]];
+/* premios que se ganan con estrellas (nivel) */
 const ITEMS=[
   {id:"crin-morada",at:15,type:"mane",val:"#a970ff",name:"Crin morada",em:"💜"},
   {id:"cuerno-dorado",at:40,type:"horn",val:"gold",name:"Cuerno dorado",em:"✨"},
   {id:"pelaje-rosa",at:70,type:"body",val:"#ffd9ee",name:"Pelaje rosado",em:"🌸"},
   {id:"crin-arcoiris",at:110,type:"mane",val:"rainbow",name:"Crin arcoíris",em:"🌈"},
-  {id:"estrellitas",at:160,type:"deco",val:"stars",name:"Estrellitas mágicas",em:"⭐"},
+  {id:"estrellitas",at:160,type:"deco",val:true,name:"Estrellitas mágicas",em:"⭐"},
   {id:"pelaje-lila",at:220,type:"body",val:"#e9dfff",name:"Pelaje lila",em:"🔮"},
-  {id:"alas",at:300,type:"wings",val:"wings",name:"Alas mágicas",em:"🪽"},
+  {id:"alas",at:300,type:"wings",val:true,name:"Alas mágicas",em:"🪽"},
   {id:"crin-turquesa",at:380,type:"mane",val:"#2bb5a3",name:"Crin turquesa",em:"🩵"},
-  {id:"corona",at:480,type:"crown",val:"crown",name:"Corona real",em:"👑"},
+  {id:"corona",at:480,type:"crown",val:true,name:"Corona real",em:"👑"},
   {id:"pelaje-celeste",at:600,type:"body",val:"#dff3ff",name:"Pelaje celeste",em:"☁️"},
-  {id:"cielo-arcoiris",at:750,type:"bg",val:"rainbow",name:"Cielo arcoíris",em:"🌤️"}
+  {id:"cielo-arcoiris",at:750,type:"bg",val:true,name:"Arcoíris de fondo",em:"🌤️"},
+  {id:"cuerno-cristal",at:1100,type:"horn",val:"crystal",name:"Cuerno de cristal",em:"💠"},
+  {id:"alas-arcoiris",at:1600,type:"wings",val:"rainbow",name:"Alas arcoíris",em:"🦋"},
+  {id:"crin-galaxia",at:2300,type:"mane",val:"galaxy",name:"Crin de galaxia",em:"🌌"}
 ];
+/* tienda: se compra con gemas */
+const SHOP=[
+  {id:"lazo",type:"bow",val:true,name:"Lazo rosado",em:"🎀",price:25},
+  {id:"pelaje-menta",type:"body",val:"#d5f7ec",name:"Pelaje menta",em:"🍃",price:35},
+  {id:"gafas",type:"glasses",val:true,name:"Gafas de corazón",em:"😍",price:40},
+  {id:"crin-fucsia",type:"mane",val:"#ff4fa3",name:"Crin fucsia",em:"💗",price:40},
+  {id:"pelaje-durazno",type:"body",val:"#ffe1cc",name:"Pelaje durazno",em:"🍑",price:45},
+  {id:"esc-nubes",type:"scene",val:"nubes",name:"Cielo de nubes",em:"☁️",price:50},
+  {id:"collar",type:"necklace",val:true,name:"Collar de estrellas",em:"📿",price:55},
+  {id:"crin-dorada",type:"mane",val:"#ffc233",name:"Crin dorada",em:"💛",price:60},
+  {id:"flores",type:"flowers",val:true,name:"Corona de flores",em:"🌼",price:65},
+  {id:"esc-castillo",type:"scene",val:"castillo",name:"Castillo rosado",em:"🏰",price:80},
+  {id:"pelaje-dorado",type:"body",val:"#ffefb3",name:"Pelaje dorado",em:"🌟",price:80},
+  {id:"esc-bosque",type:"scene",val:"bosque",name:"Bosque mágico",em:"🌳",price:80},
+  {id:"pet-gatito",type:"pet",val:"🐱",name:"Amigo gatito",em:"🐱",price:90},
+  {id:"esc-playa",type:"scene",val:"playa",name:"Playa del arcoíris",em:"🏖️",price:90},
+  {id:"pet-conejo",type:"pet",val:"🐰",name:"Amigo conejito",em:"🐰",price:90},
+  {id:"crin-plateada",type:"mane",val:"#c9d2e0",name:"Crin plateada",em:"🤍",price:100},
+  {id:"pet-pollito",type:"pet",val:"🐣",name:"Amigo pollito",em:"🐣",price:100},
+  {id:"esc-noche",type:"scene",val:"noche",name:"Noche de estrellas",em:"🌙",price:120},
+  {id:"pet-dragon",type:"pet",val:"🐉",name:"Amigo dragoncito",em:"🐉",price:160},
+  {id:"pet-hada",type:"pet",val:"🧚",name:"Amiga hada",em:"🧚",price:200}
+];
+const STICKERS=[["🌸","Flor"],["🦋","Mariposa"],["🍓","Fresa"],["🧁","Cupcake"],["🌈","Arcoíris"],["⭐","Estrella"],["🐱","Gatito"],["🐰","Conejito"],["🐼","Panda"],["🦊","Zorrito"],["🐬","Delfín"],["🐢","Tortuga"],
+  ["🍦","Helado"],["🍩","Dona"],["🍭","Paleta"],["🎀","Lazo"],["👑","Corona"],["💎","Diamante"],["🌙","Luna"],["☀️","Sol"],["❄️","Copo de nieve"],["🍄","Hongo"],["🌻","Girasol"],["🐞","Mariquita"],
+  ["🐝","Abejita"],["🦄","Unicornio"],["🐉","Dragón"],["🧚","Hada"],["🎈","Globo"],["🎠","Carrusel"],["🏰","Castillo"],["🪄","Varita"],["🐣","Pollito"],["🐨","Koala"],["🦩","Flamenco"],["🍉","Sandía"]];
 const GAMES={
   escucha:{n:"Escucha y toca",d:"Oye el número y búscalo",isl:"num",em:"👂"},
+  dictado:{n:"Dictado mágico",d:"Oye el número y escríbelo",isl:"num",em:"✍️"},
+  tabla100:{n:"Tabla del 100",d:"Encuentra el número en la tabla",isl:"num",em:"🔟"},
   nombre:{n:"¿Cómo se llama?",d:"El número y su nombre",isl:"num",em:"🔤"},
   bloques:{n:"Bloques mágicos",d:"Decenas y unidades",isl:"num",em:"🧱"},
   abaco:{n:"El ábaco",d:"Cuenta las bolitas",isl:"num",em:"🧮"},
   descomponer:{n:"Arma el número",d:"¿Cuántas decenas y unidades?",isl:"num",em:"🧩"},
+  mayor:{n:"El más grande",d:"Busca el mayor o el menor",isl:"num",em:"🏔️"},
   familia:{n:"Familias",d:"¿De qué familia es?",isl:"num",em:"🏠"},
-  ordinal:{n:"Fila de unicornios",d:"1°, 2°, 3°… hasta 10°",isl:"num",em:"🥇"},
   serie:{n:"Completa la serie",d:"¿Qué número falta?",isl:"sec",em:"🪜"},
   antesDespues:{n:"Antes, entre, después",d:"Vecinos de un número",isl:"sec",em:"↔️"},
+  recta:{n:"Saltos en la recta",d:"Salta y llega al número",isl:"sec",em:"🐸"},
   ordenar:{n:"Ordena",d:"De menor a mayor y al revés",isl:"sec",em:"📶"},
   comparar:{n:"Mayor, menor, igual",d:"Usa > < =",isl:"sec",em:"⚖️"},
-  suma10:{n:"Sumas hasta 10",d:"Junta y cuenta",isl:"ops",em:"➕"},
+  patron:{n:"Patrones",d:"¿Qué figura sigue?",isl:"sec",em:"🔁"},
+  signo:{n:"¿Más o menos?",d:"Elige el signo + o −",isl:"ops",em:"➕"},
+  sumaOresta:{n:"¿Suma o resta?",d:"Lee la historia y decide",isl:"ops",em:"🤔"},
+  suma10:{n:"Sumas hasta 10",d:"Junta y cuenta",isl:"ops",em:"🍓"},
+  dobles:{n:"Dobles",d:"2 + 2, 3 + 3, 4 + 4…",isl:"ops",em:"👯"},
+  amigos10:{n:"Amigos del 10",d:"¿Cuánto falta para 10?",isl:"ops",em:"🔟"},
+  faltante:{n:"Número escondido",d:"4 + ? = 9",isl:"ops",em:"🙈"},
   suma3:{n:"Tres sumandos",d:"Suma tres números",isl:"ops",em:"🍭"},
-  suma2d:{n:"Sumas de dos cifras",d:"Unidades primero",isl:"ops",em:"🔢"},
   resta10:{n:"Restas hasta 10",d:"Quita y cuenta",isl:"ops",em:"➖"},
+  decenas:{n:"Decenas exactas",d:"20 + 30, 50 − 20",isl:"ops",em:"💯"},
+  suma2d:{n:"Sumas de dos cifras",d:"Unidades primero",isl:"ops",em:"🔢"},
+  resta2d:{n:"Restas de dos cifras",d:"Unidades primero",isl:"ops",em:"🧁"},
   problema:{n:"Historias",d:"Problemas para pensar",isl:"ops",em:"📖"},
-  terminos:{n:"Nombres de la operación",d:"Sumando, total, minuendo…",isl:"ops",em:"🏷️"}
+  terminos:{n:"Nombres de la operación",d:"Sumando, total, minuendo…",isl:"ops",em:"🏷️"},
+  reloj:{n:"El reloj",d:"¿Qué hora es?",isl:"mundo",em:"⏰"},
+  pictograma:{n:"Pictogramas",d:"Cuenta los dibujos",isl:"mundo",em:"📊"},
+  ordinal:{n:"Fila de unicornios",d:"1°, 2°, 3°… hasta 10°",isl:"mundo",em:"🥇"}
 };
-const ISLANDS={num:{n:"Isla de los Números",em:"🏝️"},sec:{n:"Camino de las Secuencias",em:"🌈"},ops:{n:"Castillo de Sumas y Restas",em:"🏰"}};
+const ISLANDS={ops:{n:"Castillo de Sumas y Restas",em:"🏰"},num:{n:"Isla de los Números",em:"🏝️"},sec:{n:"Camino de las Secuencias",em:"🌈"},mundo:{n:"Reloj, gráficos y más",em:"⏰"}};
 const MISSIONS=[
-  {id:"m1",cls:"m1",em:"🔢",title:"Números mágicos",sub:"Escucha, mira y encuentra números",games:["escucha","bloques","nombre","abaco","descomponer","escucha"]},
-  {id:"m2",cls:"m2",em:"🌈",title:"Camino de secuencias",sub:"Series, antes y después, ordenar",games:["serie","antesDespues","ordenar","comparar","serie","familia"]},
-  {id:"m3",cls:"m3",em:"🏰",title:"Sumas y restas",sub:"Suma, resta y resuelve historias",games:["suma10","suma2d","resta10","problema","suma3","suma2d"]}
+  {id:"m1",cls:"m1",em:"🔢",title:"Números mágicos",sub:"Escucha, escribe y encuentra números",games:["escucha","dictado","bloques","tabla100","nombre","mayor","abaco","descomponer"]},
+  {id:"m2",cls:"m2",em:"🌈",title:"Camino de secuencias",sub:"Series, saltos, ordenar y patrones",games:["serie","antesDespues","recta","ordenar","comparar","patron","familia"]},
+  {id:"m3",cls:"m3",em:"🏰",title:"Sumas y restas",sub:"¿Más o menos? Suma, resta e historias",games:["signo","suma10","resta10","sumaOresta","amigos10","faltante","suma2d","problema","dobles"]}
 ];
-const QN=8;
+const QN=10;
 
 /* ================= estado ================= */
 const KEY="reino_unicornio_v1";
 const store={get(k,d){try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v)}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
-function defaultState(){return{name:"",stars:0,prog:{},days:{},missions:{},look:{body:"#ffffff",mane:"#ff8fc7",horn:"plain",wings:false,crown:false,deco:false,bg:false},voice:"",rate:.9,readAuto:true,created:today()}}
-let S=Object.assign(defaultState(),store.get(KEY,{}));
-S.look=Object.assign(defaultState().look,S.look||{});
+function defaultLook(){return{body:"#ffffff",mane:"#ff8fc7",horn:"plain",wings:false,crown:false,deco:false,bg:false,bow:false,glasses:false,necklace:false,flowers:false,scene:"",pet:""}}
+function defaultState(){return{name:"",uniName:"",stars:0,gems:0,owned:{},stickers:{},prog:{},days:{},missions:{},extras:{},chests:{},arcade:{},look:defaultLook(),voice:"",rate:.9,readAuto:true,created:today()}}
+function normalize(st){const d=defaultState();st=Object.assign(d,st||{});st.look=Object.assign(defaultLook(),st.look||{});
+  ["owned","stickers","prog","days","missions","extras","chests","arcade"].forEach(k=>{if(!st[k]||typeof st[k]!=="object")st[k]={}});
+  if(st.look.wings===true&&!st.look.wings)st.look.wings=true;return st}
+let S=normalize(store.get(KEY,{}));
 const save=()=>store.set(KEY,S);
-let VIEW="hoy",GAME=null;
+let VIEW="hoy",GAME=null,ARC=null,UTAB="vestir";
 
 /* ================= utilidades ================= */
 const $=s=>document.querySelector(s);
@@ -241,8 +358,11 @@ const DIA=["domingo","lunes","martes","miércoles","jueves","viernes","sábado"]
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const U=["cero","uno","dos","tres","cuatro","cinco","seis","siete","ocho","nueve","diez","once","doce","trece","catorce","quince","dieciséis","diecisiete","dieciocho","diecinueve","veinte","veintiuno","veintidós","veintitrés","veinticuatro","veinticinco","veintiséis","veintisiete","veintiocho","veintinueve"];
 const T={3:"treinta",4:"cuarenta",5:"cincuenta",6:"sesenta",7:"setenta",8:"ochenta",9:"noventa"};
-function words(n){if(n<30)return U[n];const t=Math.floor(n/10),u=n%10;return T[t]+(u?" y "+U[u]:"")}
+function words(n){if(n===100)return"cien";if(n<30)return U[n];const t=Math.floor(n/10),u=n%10;return T[t]+(u?" y "+U[u]:"")}
 const ORD=["","primero","segundo","tercero","cuarto","quinto","sexto","séptimo","octavo","noveno","décimo"];
+const MINUS="−";
+function opSpan(op){return op==="+"?`<span class="op plus">+<small>más</small></span>`:`<span class="op minus">${MINUS}<small>menos</small></span>`}
+function eqHTML(parts){return `<div class="eq">${parts.map(p=>p==="+"||p===MINUS||p==="-"?opSpan(p==="+"?"+":"-"):p==="="?`<span class="op eqs">=</span>`:p==="?"?`<span class="qbox">?</span>`:`<span>${p}</span>`).join("")}</div>`}
 
 /* ================= voz ================= */
 let VOICES=[];
@@ -250,7 +370,7 @@ function loadVoices(){try{VOICES=(speechSynthesis.getVoices()||[]).filter(v=>/^e
 try{loadVoices();speechSynthesis.addEventListener&&speechSynthesis.addEventListener("voiceschanged",loadVoices)}catch(e){}
 function bestVoice(){
   if(S.voice){const v=VOICES.find(v=>v.name===S.voice);if(v)return v}
-  const pref=[/google.*estados unidos/i,/es-(US|MX|419)/i,/google.*espa/i,/paulina|m[oó]nica|sabina|helena|elvira|dalia|lupe|pe[ñn]elope/i,/natural|neural|online/i,/es-(US|MX|419)/i,/es/i];
+  const pref=[/google.*estados unidos/i,/es-(US|MX|419)/i,/google.*espa/i,/paulina|m[oó]nica|sabina|helena|elvira|dalia|lupe|pe[ñn]elope/i,/natural|neural|online/i,/es/i];
   for(const p of pref){const v=VOICES.find(v=>p.test(v.name)||p.test(v.lang));if(v)return v}
   return null;
 }
@@ -258,21 +378,21 @@ function say(text,rate){
   try{
     if(!window.speechSynthesis)return;
     speechSynthesis.cancel();
-    const clean=String(text).replace(/<[^>]+>/g," ").replace(/[\u{1F000}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE0F}\u{200D}]/gu,"").replace(/_+/g,", ").replace(/\s+/g," ").trim();
+    const clean=String(text).replace(/<[^>]+>/g," ").replace(/[\u{1F000}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE0F}\u{200D}]/gu,"").replace(/−/g," menos ").replace(/\+/g," más ").replace(/_+/g,", ").replace(/\s+/g," ").trim();
     const u=new SpeechSynthesisUtterance(clean);const v=bestVoice();
     if(v){u.voice=v;u.lang=v.lang}else u.lang="es-ES";
     u.rate=rate||S.rate||.9;u.pitch=1.05;speechSynthesis.speak(u);
   }catch(e){}
 }
 
-/* ================= progreso y niveles ================= */
+/* ================= progreso, niveles y premios ================= */
 function prog(id){return S.prog[id]=S.prog[id]||{lv:1,hist:[],ok:0,tot:0}}
 function lv(id){return prog(id).lv}
 function record(id,ok){
   const p=prog(id);p.tot++;if(ok)p.ok++;p.hist.push(ok?1:0);if(p.hist.length>20)p.hist=p.hist.slice(-20);
   const last=p.hist.slice(-10);
   if(last.length>=10){const r=last.reduce((a,b)=>a+b,0)/10;
-    if(r>=.9&&p.lv<3){p.lv++;p.hist=[]}
+    if(r>=.9&&p.lv<3){p.lv++;p.hist=[];setTimeout(()=>toast("⬆️ ¡Subiste al nivel "+p.lv+" en "+GAMES[id].n+"!"),400)}
     else if(r<.5&&p.lv>1){p.lv--;p.hist=[]}}
 }
 function acc(id){const p=S.prog[id];if(!p||!p.hist.length)return -1;return p.hist.reduce((a,b)=>a+b,0)/p.hist.length}
@@ -280,11 +400,12 @@ const maxN=id=>[20,50,99][lv(id)-1];
 function levelOf(st){let i=0;LEVELS.forEach((l,k)=>{if(st>=l[0])i=k});const nx=LEVELS[i+1];return{i,name:LEVELS[i][1],from:LEVELS[i][0],to:nx?nx[0]:LEVELS[i][0],next:nx?nx[1]:null}}
 function checkPrizes(from){const before=levelOf(from).i,beforeItems=ITEMS.filter(x=>from>=x.at).length;renderHud();
   const L=levelOf(S.stars);const newItems=ITEMS.filter(x=>S.stars>=x.at).slice(beforeItems);
-  if(L.i>before)setTimeout(()=>celebrate("¡Subiste de nivel!","Ahora eres "+L.name+".","🦄"),700);
-  else if(newItems.length)setTimeout(()=>celebrate("¡Premio nuevo!","Ganaste: "+newItems.map(x=>x.name).join(", ")+". Ve a «Mi unicornio» para ponérselo.",newItems[0].em),700);
+  if(L.i>before)queueCelebrate("¡Subiste de nivel!","Ahora eres "+L.name+".","🦄");
+  if(newItems.length)queueCelebrate("¡Premio nuevo!","Ganaste: "+newItems.map(x=>x.name).join(", ")+". Ve a «Unicornio» para ponérselo.",newItems[0].em);
 }
-function renderHud(){const L=levelOf(S.stars);$("#hudLvl").textContent=L.name.toUpperCase();$("#hudStars").textContent=S.stars;
+function renderHud(){const L=levelOf(S.stars);$("#hudLvl").textContent=L.name.toUpperCase();$("#hudStars").textContent=S.stars;$("#hudGems").textContent=S.gems;
   $("#hudBar").style.width=(L.next?Math.min(100,100*(S.stars-L.from)/(L.to-L.from)):100)+"%"}
+function giveSticker(){const missing=STICKERS.filter(s=>!S.stickers[s[0]]);const s=missing.length?pick(missing):pick(STICKERS);S.stickers[s[0]]=(S.stickers[s[0]]||0)+1;save();return{s,isNew:missing.length>0}}
 
 /* ================= dibujos (SVG) ================= */
 function blocksSVG(n){
@@ -309,52 +430,64 @@ function lineSVG(a,b,opt){
     if(hl||q)h+=`<circle cx="${x}" cy="98" r="17" fill="${q?"#ffe1f0":"#efe3ff"}"/>`;
     h+=`<text x="${x}" y="105" text-anchor="middle" font-size="19" font-weight="800" fill="${q?"#ff6fb5":hl?"#7b3fd0":"#2d1b4e"}">${q?"?":v}</text>`}
   (opt.hops||[]).forEach(([f,t,lab])=>{const x1=pad+(f-a)*step,x2=pad+(t-a)*step,mx=(x1+x2)/2;
-    h+=`<path d="M${x1},60 Q${mx},${10} ${x2},60" fill="none" stroke="${t>f?"#2bb5a3":"#ff6fb5"}" stroke-width="3"/><path d="M${x2},60 l${t>f?-9:9},-7 l${t>f?2:-2},10z" fill="${t>f?"#2bb5a3":"#ff6fb5"}"/>`+(lab?`<text x="${mx}" y="30" text-anchor="middle" font-size="16" font-weight="800" fill="#2d1b4e">${lab}</text>`:"")});
+    h+=`<path d="M${x1},60 Q${mx},${10} ${x2},60" fill="none" stroke="${t>f?"#16a36b":"#e0447f"}" stroke-width="3"/><path d="M${x2},60 l${t>f?-9:9},-7 l${t>f?2:-2},10z" fill="${t>f?"#16a36b":"#e0447f"}"/>`+(lab?`<text x="${mx}" y="30" text-anchor="middle" font-size="16" font-weight="800" fill="#2d1b4e">${lab}</text>`:"")});
   return `<svg viewBox="0 0 ${W} 120" width="${W}" role="img" aria-label="recta numérica">${h}</svg>`;
 }
-function chartHTML(mark){
-  let h='<div style="display:inline-grid;grid-template-columns:repeat(10,1fr);gap:2px;font-size:15px;font-weight:700">';
-  for(let v=0;v<100;v++){const on=mark.includes(v);h+=`<span style="width:30px;height:28px;display:grid;place-items:center;border-radius:6px;background:${on?"#ff8fc7":(Math.floor(v/10)%2?"#f6efff":"#fff")};color:${on?"#fff":"#2d1b4e"}">${v}</span>`}
-  return h+"</div>";
+function clockSVG(h,m){
+  let s=`<circle cx="110" cy="110" r="100" fill="#fff" stroke="#7b3fd0" stroke-width="8"/>`;
+  for(let i=1;i<=12;i++){const a=i*Math.PI/6;s+=`<text x="${110+78*Math.sin(a)}" y="${118-78*Math.cos(a)}" text-anchor="middle" font-size="22" font-weight="800" fill="#2d1b4e">${i}</text>`}
+  for(let i=0;i<60;i++){const a=i*Math.PI/30,r1=i%5?94:90;s+=`<line x1="${110+r1*Math.sin(a)}" y1="${110-r1*Math.cos(a)}" x2="${110+97*Math.sin(a)}" y2="${110-97*Math.cos(a)}" stroke="#bba6e8" stroke-width="${i%5?1.5:3}"/>`}
+  const ha=((h%12)+m/60)*Math.PI/6,ma=m*Math.PI/30;
+  s+=`<line x1="110" y1="110" x2="${110+48*Math.sin(ha)}" y2="${110-48*Math.cos(ha)}" stroke="#ff6fb5" stroke-width="10" stroke-linecap="round"/>`;
+  s+=`<line x1="110" y1="110" x2="${110+76*Math.sin(ma)}" y2="${110-76*Math.cos(ma)}" stroke="#7b3fd0" stroke-width="6" stroke-linecap="round"/><circle cx="110" cy="110" r="8" fill="#2d1b4e"/>`;
+  return `<svg viewBox="0 0 220 220" width="220" role="img" aria-label="reloj">${s}</svg>`;
 }
+function tenFrame(n){let h='<div class="tenf">';for(let i=0;i<10;i++)h+=`<i class="${i<n?"on":""}"></i>`;return h+"</div>"}
+function shade(hex){try{const n=parseInt(hex.slice(1),16);let r=(n>>16)&255,g=(n>>8)&255,b=n&255;r=Math.round(r*.93);g=Math.round(g*.9);b=Math.round(b*.95);return"#"+[r,g,b].map(x=>x.toString(16).padStart(2,"0")).join("")}catch(e){return hex}}
+let UID=0;
 function unicornSVG(look,size){
-  look=look||S.look;const body=look.body||"#fff",mane=look.mane||"#ff8fc7";
-  const rb=mane==="rainbow";const mc=i=>rb?["#ff6f91","#ffb520","#ffe36e","#5fd6a0","#5fb8ff","#a970ff"][i%6]:mane;
-  const horn=look.horn==="gold"?"url(#hg2)":"url(#hg1)";
+  look=look||S.look;const id="u"+(UID++);const body=look.body||"#fff",mane=look.mane||"#ff8fc7";
+  const RB=["#ff6f91","#ffb520","#ffe36e","#5fd6a0","#5fb8ff","#a970ff"],GX=["#2b1a5e","#5b3fd0","#1e6fd9","#a970ff","#3a2a8a","#ff6fb5"];
+  const mc=i=>mane==="rainbow"?RB[i%6]:mane==="galaxy"?GX[i%6]:mane;
+  const horn=look.horn==="gold"?`url(#${id}hg2)`:look.horn==="crystal"?`url(#${id}hg3)`:`url(#${id}hg1)`;
   let h=`<svg viewBox="0 0 300 260" ${size?`width="${size}"`:""} role="img" aria-label="tu unicornio"><defs>
-  <linearGradient id="hg1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff6c9"/><stop offset="1" stop-color="#ffd3ec"/></linearGradient>
-  <linearGradient id="hg2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff3a6"/><stop offset="1" stop-color="#f2a900"/></linearGradient>
-  <linearGradient id="rbw" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ff6f91"/><stop offset=".2" stop-color="#ffb520"/><stop offset=".4" stop-color="#ffe36e"/><stop offset=".6" stop-color="#5fd6a0"/><stop offset=".8" stop-color="#5fb8ff"/><stop offset="1" stop-color="#a970ff"/></linearGradient></defs>`;
-  if(look.bg)h+=`<path d="M20,250 A130,130 0 0 1 280,250" fill="none" stroke="url(#rbw)" stroke-width="22" opacity=".55"/>`;
+  <linearGradient id="${id}hg1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff6c9"/><stop offset="1" stop-color="#ffd3ec"/></linearGradient>
+  <linearGradient id="${id}hg2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff3a6"/><stop offset="1" stop-color="#f2a900"/></linearGradient>
+  <linearGradient id="${id}hg3" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e6fbff"/><stop offset=".5" stop-color="#9ee7ff"/><stop offset="1" stop-color="#c9a8ff"/></linearGradient>
+  <linearGradient id="${id}rbw" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ff6f91"/><stop offset=".2" stop-color="#ffb520"/><stop offset=".4" stop-color="#ffe36e"/><stop offset=".6" stop-color="#5fd6a0"/><stop offset=".8" stop-color="#5fb8ff"/><stop offset="1" stop-color="#a970ff"/></linearGradient></defs>`;
+  // escenario
+  const sc=look.scene;
+  if(sc==="nubes")h+=`<rect width="300" height="260" rx="20" fill="#e3f4ff"/><g fill="#fff"><circle cx="50" cy="50" r="22"/><circle cx="76" cy="44" r="28"/><circle cx="104" cy="54" r="20"/><circle cx="210" cy="30" r="16"/><circle cx="232" cy="24" r="22"/><circle cx="256" cy="34" r="16"/></g>`;
+  if(sc==="castillo")h+=`<rect width="300" height="260" rx="20" fill="#fff0fa"/><g fill="#ffc6e4" stroke="#f39ac9" stroke-width="2"><rect x="18" y="110" width="80" height="130"/><rect x="10" y="80" width="26" height="160"/><rect x="80" y="80" width="26" height="160"/><path d="M8,80 L23,48 L38,80z M78,80 L93,48 L108,80z" fill="#a970ff"/><rect x="44" y="190" width="28" height="50" rx="14" fill="#a970ff"/></g>`;
+  if(sc==="bosque")h+=`<rect width="300" height="260" rx="20" fill="#eafaf2"/><g><rect x="34" y="150" width="12" height="90" fill="#b07a4a"/><circle cx="40" cy="130" r="38" fill="#8fdcb2"/><rect x="270" y="160" width="10" height="80" fill="#b07a4a"/><circle cx="275" cy="142" r="30" fill="#a7e6c4"/><circle cx="20" cy="230" r="10" fill="#ff8fc7"/><circle cx="110" cy="236" r="7" fill="#ffd23f"/></g>`;
+  if(sc==="playa")h+=`<rect width="300" height="260" rx="20" fill="#e6f7ff"/><circle cx="50" cy="45" r="26" fill="#ffd23f"/><path d="M0,205 Q75,190 150,205 T300,205 V260 H0z" fill="#8fd1ff"/><path d="M0,235 H300 V260 H0z" fill="#ffe3b3"/>`;
+  if(sc==="noche"){h+=`<rect width="300" height="260" rx="20" fill="#2b1a5e"/><circle cx="56" cy="50" r="22" fill="#fff6c9"/><circle cx="64" cy="44" r="20" fill="#2b1a5e"/>`;[[120,30],[200,60],[260,25],[30,120],[280,120],[160,80]].forEach(([x,y])=>{h+=`<circle cx="${x}" cy="${y}" r="2.5" fill="#fff"/>`})}
+  if(look.bg)h+=`<path d="M20,250 A130,130 0 0 1 280,250" fill="none" stroke="url(#${id}rbw)" stroke-width="22" opacity=".55"/>`;
   h+=`<ellipse cx="150" cy="246" rx="95" ry="9" fill="#2d1b4e" opacity=".08"/>`;
-  if(look.wings)h+=`<g fill="#fff" stroke="#c9b3ff" stroke-width="3"><path d="M128,140 C90,70 40,85 52,118 C30,120 34,150 70,150 C60,170 100,172 128,158z"/><path d="M84,118 C95,122 105,130 112,140 M70,140 C85,140 100,145 112,150" fill="none"/></g>`;
-  // tail
+  if(look.wings){const wf=look.wings==="rainbow"?`url(#${id}rbw)`:"#fff";h+=`<g fill="${wf}" stroke="#c9b3ff" stroke-width="3"><path d="M128,140 C90,70 40,85 52,118 C30,120 34,150 70,150 C60,170 100,172 128,158z"/><path d="M84,118 C95,122 105,130 112,140 M70,140 C85,140 100,145 112,150" fill="none"/></g>`}
   for(let i=0;i<4;i++)h+=`<path d="M76,${150+i*8} C${40-i*4},${140+i*14} ${46-i*2},${190+i*6} ${64+i*3},${200+i*4}" fill="none" stroke="${mc(i+2)}" stroke-width="11" stroke-linecap="round"/>`;
-  // legs
   [[100,0],[124,1],[176,0],[198,1]].forEach(([x,b])=>{h+=`<rect x="${x-10}" y="170" width="20" height="66" rx="10" fill="${b?shade(body):body}" stroke="#2d1b4e" stroke-width="3"/><rect x="${x-10}" y="222" width="20" height="14" rx="5" fill="#b48cff" stroke="#2d1b4e" stroke-width="3"/>`});
-  // body
   h+=`<ellipse cx="150" cy="160" rx="82" ry="50" fill="${body}" stroke="#2d1b4e" stroke-width="3"/>`;
-  // neck + head
   h+=`<path d="M196,140 C204,104 208,88 214,72 L246,86 C240,108 236,128 226,156z" fill="${body}" stroke="#2d1b4e" stroke-width="3"/>`;
   h+=`<ellipse cx="236" cy="78" rx="36" ry="30" fill="${body}" stroke="#2d1b4e" stroke-width="3"/>`;
   h+=`<ellipse cx="262" cy="92" rx="22" ry="17" fill="${shade(body)}" stroke="#2d1b4e" stroke-width="3"/><circle cx="268" cy="90" r="2.6" fill="#2d1b4e"/>`;
-  // horn
   h+=`<path d="M226,50 L246,4 L250,54z" fill="${horn}" stroke="#2d1b4e" stroke-width="3" stroke-linejoin="round"/><path d="M230,40 L247,36 M234,28 L248,24" stroke="#2d1b4e" stroke-width="2"/>`;
-  // ear
   h+=`<path d="M214,56 L218,30 L232,50z" fill="${body}" stroke="#2d1b4e" stroke-width="3" stroke-linejoin="round"/>`;
-  // mane
   for(let i=0;i<6;i++)h+=`<circle cx="${214-i*5}" cy="${52+i*18}" r="15" fill="${mc(i)}" stroke="#2d1b4e" stroke-width="2.5"/>`;
   h+=`<circle cx="222" cy="44" r="13" fill="${mc(5)}" stroke="#2d1b4e" stroke-width="2.5"/>`;
-  // eye + blush
+  if(mane==="galaxy")[[212,60],[206,96],[200,128],[222,42]].forEach(([x,y])=>{h+=`<circle cx="${x}" cy="${y}" r="2" fill="#fff"/>`});
   h+=`<path d="M232,74 q8,8 16,0" fill="none" stroke="#2d1b4e" stroke-width="4" stroke-linecap="round"/><path d="M238,80 l-2,6 M244,80 l2,6" stroke="#2d1b4e" stroke-width="2.5"/><ellipse cx="250" cy="98" rx="8" ry="5" fill="#ff8fc7" opacity=".7"/>`;
   h+=`<path d="M252,104 q8,6 16,-2" fill="none" stroke="#2d1b4e" stroke-width="3" stroke-linecap="round"/>`;
+  if(look.glasses)h+=`<g fill="#ff4fa3" stroke="#2d1b4e" stroke-width="2"><path d="M232,70 c-8,-10 -22,0 -12,12 l12,10 12,-10 c10,-12 -4,-22 -12,-12z" transform="translate(4,-2) scale(.9) translate(26,8)"/></g><path d="M246,74 l18,-4" stroke="#2d1b4e" stroke-width="2"/>`;
+  if(look.necklace)[[204,138],[212,146],[222,150],[232,146]].forEach(([x,y],i)=>{h+=`<path d="M${x},${y-7} l2.4,5 5.6,.8 -4,3.9 1,5.5 -5,-2.6 -5,2.6 1,-5.5 -4,-3.9 5.6,-.8z" fill="${["#ffd23f","#ff8fc7","#7ee2b8","#a970ff"][i]}" stroke="#2d1b4e" stroke-width="1"/>`});
+  if(look.flowers)[[206,40],[218,30],[232,26],[258,40]].forEach(([x,y],i)=>{const c=["#ff8fc7","#ffd23f","#a970ff","#7ee2b8"][i];h+=`<g><circle cx="${x-4}" cy="${y}" r="4.5" fill="${c}"/><circle cx="${x+4}" cy="${y}" r="4.5" fill="${c}"/><circle cx="${x}" cy="${y-4}" r="4.5" fill="${c}"/><circle cx="${x}" cy="${y+4}" r="4.5" fill="${c}"/><circle cx="${x}" cy="${y}" r="3" fill="#fff"/></g>`});
+  if(look.bow)h+=`<g transform="translate(196,70) rotate(-20)"><path d="M0,0 L-16,-10 L-16,10z M0,0 L16,-10 L16,10z" fill="#ff4fa3" stroke="#2d1b4e" stroke-width="2" stroke-linejoin="round"/><circle r="5" fill="#ff8fc7" stroke="#2d1b4e" stroke-width="2"/></g>`;
   if(look.crown)h+=`<path d="M196,56 L198,32 L207,44 L213,28 L219,44 L228,32 L228,56z" fill="#ffd23f" stroke="#2d1b4e" stroke-width="3" stroke-linejoin="round" transform="rotate(-12 212 44)"/><circle cx="213" cy="50" r="3" fill="#ff6fb5"/>`;
   if(look.deco)[[60,50],[110,40],[270,150],[30,100],[150,90]].forEach(([x,y],i)=>{h+=`<path d="M${x},${y-11} l3,8 8,3 -8,3 -3,8 -3,-8 -8,-3 8,-3z" fill="${["#ffb520","#ff6fb5","#a970ff","#2bb5a3","#ffb520"][i]}"/>`});
-  // heart on body
   h+=`<path d="M146,160 c-8,-10 -22,0 -12,12 l12,10 12,-10 c10,-12 -4,-22 -12,-12z" fill="#ff8fc7" opacity=".8"/>`;
+  if(look.pet)h+=`<text x="44" y="250" font-size="50" text-anchor="middle">${look.pet}</text>`;
   return h+"</svg>";
 }
-function shade(hex){try{const n=parseInt(hex.slice(1),16);let r=(n>>16)&255,g=(n>>8)&255,b=n&255;r=Math.round(r*.93);g=Math.round(g*.9);b=Math.round(b*.95);return"#"+[r,g,b].map(x=>x.toString(16).padStart(2,"0")).join("")}catch(e){return hex}}
 
 /* ================= generadores de preguntas ================= */
 function numDistract(n,max,k){
@@ -368,10 +501,18 @@ function numDistract(n,max,k){
   return res;
 }
 function optsNum(n,max,k){return shuffle([n,...numDistract(n,max,k||3)]).map(String)}
+const EMO_A=["⭐","🌸","🍓","💎","🧁","🦋"],EMO_B=["🦄","🎈","🍭","🌟","🍩","🐰"];
+const PLUS_W="Sumar es <b>juntar</b> o <b>agregar</b>: el número se hace <b>más grande</b>.",MINUS_W="Restar es <b>quitar</b>: el número se hace <b>más pequeño</b>.";
 const G={
   escucha(){const m=maxN("escucha"),n=R(lv("escucha")===1?0:10,m);
     return{say:"Toca el número "+words(n),title:"👂 Escucha y toca el número",body:`<button class="btn ghost small" data-repeat>🔊 Oír otra vez</button>`,opts:optsNum(n,m),ans:String(n),
       hint:`<p>${n} es <b>${words(n)}</b>: ${Math.floor(n/10)} decenas y ${n%10} unidades.</p>`+blocksSVG(n),hintSay:words(n)+". "+(n>=10?Math.floor(n/10)+" decenas y "+(n%10)+" unidades":"")}},
+  dictado(){const m=maxN("dictado"),n=R(lv("dictado")===1?0:10,m);
+    return{type:"input",say:"Escribe el número "+words(n),title:"✍️ Escucha y escribe el número",body:`<button class="btn ghost small" data-repeat>🔊 Oír otra vez</button>`,ans:n,
+      hint:`<p><b>${words(n)}</b> tiene ${Math.floor(n/10)} decenas y ${n%10} unidades. Primero escribe ${n>=10?"la decena: "+Math.floor(n/10):"el número"}.</p>`+blocksSVG(n),hintSay:words(n)+". Primero escribe la decena y después la unidad"}},
+  tabla100(){const L=lv("tabla100"),top=[29,59,99][L-1],n=R(L===1?1:10,top);
+    return{type:"chart",top,say:"Busca y toca el número "+words(n),title:"🔟 Toca el número "+n,body:`<button class="btn ghost small" data-repeat>🔊 Oír otra vez</button>`,ans:n,
+      hint:`<p>Busca la fila que empieza con <b>${Math.floor(n/10)*10}</b>. Luego avanza ${n%10} ${n%10===1?"casilla":"casillas"}.</p>`,hintSay:"Busca la fila que empieza con "+words(Math.floor(n/10)*10)}},
   nombre(){const m=maxN("nombre"),n=R(lv("nombre")===1?0:11,m),ds=numDistract(n,m,2);
     return{say:"¿Cómo se llama este número?",title:"🔤 ¿Cómo se llama este número?",body:`<div class="bignum">${n}</div>`,opts:shuffle([n,...ds]).map(words),ans:words(n),cls:"words one",
       hint:`<p>Primero lee la decena y después la unidad.</p>`+blocksSVG(n),hintSay:"Este número es "+words(n)}},
@@ -387,6 +528,11 @@ const G={
     const opts=[...new Set(cand)].slice(0,3);
     return{say:"¿Cuántas decenas y unidades tiene el número "+words(n)+"?",title:`🧩 ¿Cómo se arma el ${n}?`,body:`<div class="bignum">${n}</div>`,opts:shuffle(opts),ans:f(d,u),cls:"words one",
       hint:`<p>El primer número dice las decenas (${d}). El segundo dice las unidades (${u}).</p>`+blocksSVG(n),hintSay:"El primer número dice las decenas y el segundo las unidades"}},
+  mayor(){const m=maxN("mayor"),L=lv("mayor"),set=new Set();
+    if(L>=2&&Math.random()<.5){const t=R(1,Math.floor(m/10)-1);while(set.size<4)set.add(Math.min(m,t*10+R(0,9)))}else while(set.size<4)set.add(R(0,m));
+    const nums=[...set],big=Math.random()<.6,ans=big?Math.max(...nums):Math.min(...nums);
+    return{say:big?"Toca el número más grande":"Toca el número más pequeño",title:big?"🏔️ ¿Cuál es el MÁS GRANDE?":"🐜 ¿Cuál es el MÁS PEQUEÑO?",body:"",opts:shuffle(nums).map(String),ans:String(ans),
+      hint:`<p>Mira primero las decenas (el primer número). ${big?"Gana la decena más grande.":"Gana la decena más pequeña."} Si son iguales, mira las unidades.</p>`,hintSay:"Mira primero las decenas"}},
   familia(){const L=lv("familia"),lo=L===1?1:L===2?2:5,t=R(lo,9),n=t*10+R(0,9);
     if(Math.random()<.6){const fams=shuffle([t,...shuffle([1,2,3,4,5,6,7,8,9].filter(x=>x!==t)).slice(0,2)]);
       return{say:"¿A qué familia pertenece el número "+words(n)+"?",title:`🏠 ¿A qué familia pertenece el ${n}?`,body:`<div class="bignum">${n}</div>`,opts:fams.map(x=>"Familia del "+x*10),ans:"Familia del "+t*10,cls:"words one",
@@ -394,10 +540,10 @@ const G={
     const others=shuffle([1,2,3,4,5,6,7,8,9].filter(x=>x!==t)).slice(0,3).map(x=>x*10+R(0,9));
     return{say:"¿Cuál número es de la familia del "+words(t*10)+"?",title:`🏠 ¿Cuál es de la familia del ${t*10}?`,body:"",opts:shuffle([n,...others]).map(String),ans:String(n),
       hint:`<p>Busca el número que empieza con <b>${t}</b>.</p>`,hintSay:"Busca el número que empieza con "+t}},
-  ordinal(){const k=R(1,lv("ordinal")===1?5:10);const row=["🦄","🦄","🦄","🦄","🦄","🦄","🦄","🦄","🦄","🦄"];
+  ordinal(){const k=R(1,lv("ordinal")===1?5:10);const row=Array(10).fill("🦄");
     return{type:"ordinal",say:"Toca el unicornio "+ORD[k]+". Empieza a contar desde la izquierda, donde está la flecha.",title:`🥇 Toca el unicornio ${k}°`,body:`<p class="small muted">➡️ Empieza a contar desde aquí</p>`,row,ans:k-1,
       hint:`<p>Cuenta desde la izquierda: 1°, 2°, 3°… hasta llegar al ${k}°.</p>`,hintSay:"Cuenta desde la izquierda"}},
-  serie(){const L=lv("serie");let step=L===1?1:pick(L===2?[1,1,2,-1]:[1,2,-1,-2,10,-10,5]);if(L>=2&&Math.random()<.3)step=-Math.abs(step);
+  serie(){const L=lv("serie");let step=L===1?pick([1,1,1,-1]):pick(L===2?[1,1,2,-1,-2,10]:[1,2,-1,-2,10,-10,5,-5]);
     const len=5,m=maxN("serie");let lo=Math.min(0,step*(len-1)),hi=Math.max(0,step*(len-1));
     let start=R(Math.max(0,-lo),Math.min(99,m)-hi);if(Math.abs(step)===10)start=R(Math.max(0,-lo),99-hi);
     const seq=Array.from({length:len},(_,i)=>start+i*step);const pos=R(1,len-1),ans=seq[pos];
@@ -413,6 +559,13 @@ const G={
     else{ans=n;title=`↔️ ¿Qué número va entre ${n-1} y ${n+1}?`;sayT="¿Qué número va entre "+words(n-1)+" y "+words(n+1)+"?";body=`<div class="slots"><span>${n-1}</span><span style="border-color:#ff6fb5;color:#ff6fb5">?</span><span>${n+1}</span></div>`}
     return{say:sayT,title,body,opts:optsNum(ans,m),ans:String(ans),
       hint:`<p>${k==="antes"?"Antes es uno menos.":k==="despues"?"Después es uno más.":"Entre es el del medio."}</p><div class="visual">${lineSVG(Math.max(0,n-4),Math.min(99,n+4),{ask:ans,mark:[n]})}</div>`,hintSay:k==="antes"?"Antes es uno menos":k==="despues"?"Después es uno más":"Entre es el número del medio"}},
+  recta(){const L=lv("recta"),plus=Math.random()<.55,span=11;let from,start,jump,ans;
+    const top=[20,50,99][L-1];jump=R(1,L===1?5:7);
+    if(plus){start=R(0,top-jump);ans=start+jump}else{start=R(jump,top);ans=start-jump}
+    const lo=Math.min(start,ans),hi=Math.max(start,ans);from=Math.max(0,lo-R(0,span-1-(hi-lo)));if(from+span-1>99)from=100-span;
+    return{type:"line",from,to:from+span-1,start,ans,say:"El unicornio está en el "+words(start)+". Da "+words(jump)+(jump===1?" salto ":" saltos ")+(plus?"hacia adelante":"hacia atrás")+". ¿Dónde llega?",
+      title:`🐸 Empieza en ${start} y salta ${plus?"+":MINUS}${jump}`,body:eqHTML([start,plus?"+":"-",jump,"=","?"])+`<p class="small muted">${plus?"Más: salta hacia adelante ➡️":"Menos: salta hacia atrás ⬅️"}</p>`,
+      hint:`<p>${plus?PLUS_W:MINUS_W}</p><div class="visual">${lineSVG(from,from+span-1,{mark:[start],hops:Array.from({length:jump},(_,i)=>plus?[start+i,start+i+1]:[start-i,start-i-1])})}</div>`,hintSay:(plus?"Más: cuenta hacia adelante ":"Menos: cuenta hacia atrás ")+words(jump)+" saltos"}},
   ordenar(){const m=maxN("ordenar"),L=lv("ordenar");const set=new Set();
     if(L===3){const base=R(10,80);while(set.size<4)set.add(base+R(0,19))}else while(set.size<4)set.add(R(0,m));
     const nums=[...set];const asc=Math.random()<.5;const order=nums.slice().sort((a,b)=>asc?a-b:b-a);
@@ -423,60 +576,116 @@ const G={
     const ans=a>b?">":a<b?"<":"=";
     return{say:"¿Qué signo va? Mayor que, menor que o igual.",title:"⚖️ ¿Qué signo va?",body:`<div class="cmp"><span>${a}</span><span class="box"></span><span>${b}</span></div>`,opts:[">","<","="],ans,cls:"three",
       hint:`<p>La boquita abierta mira al número más grande. ${a===b?"Son iguales: =":`El mayor es <b>${Math.max(a,b)}</b>.`}</p><p class="small">Compara primero las decenas: ${Math.floor(a/10)} y ${Math.floor(b/10)}.</p>`,hintSay:a===b?"Son iguales":"El mayor es "+words(Math.max(a,b))}},
-  suma10(){const a=R(0,lv("suma10")===1?6:9),b=R(1,10-a<1?1:10-a);const s=a+b;const e1=pick(["⭐","🌸","🍓","💎"]),e2=pick(["🦄","🎈","🍭","🌟"]);
-    return{type:"input",say:"¿Cuánto es "+words(a)+" más "+words(b)+"?",title:`➕ ${a} + ${b} = ?`,body:`<div class="emo-group">${e1.repeat(a)}<span style="opacity:.5"> + </span>${e2.repeat(b)}</div>`,ans:s,
+  patron(){const L=lv("patron"),E=shuffle(["🦄","🌈","⭐","🌸","🍓","💎","🦋","🧁"]);const kinds=L===1?["AB","AAB"]:L===2?["AB","AAB","ABB","ABC"]:["ABB","ABC","AABB","ABCB"];
+    const k=pick(kinds),map={A:E[0],B:E[1],C:E[2]},unit=k.split("").map(c=>map[c]);const len=unit.length*2+R(1,unit.length);
+    const seq=Array.from({length:len+1},(_,i)=>unit[i%unit.length]),ans=seq[len];const opts=shuffle([...new Set([ans,E[0],E[1],E[2],E[3]])].slice(0,3).concat([]));
+    if(!opts.includes(ans))opts[0]=ans;
+    return{say:"Mira el patrón. ¿Qué figura sigue?",title:"🔁 ¿Qué sigue en el patrón?",body:`<div class="pattern">${seq.slice(0,len).join(" ")} <span style="border:3px dashed #ff6fb5;border-radius:12px;padding:0 10px">?</span></div>`,opts:shuffle(opts),ans,cls:"three",
+      hint:`<p>El grupo que se repite es: <b>${unit.join(" ")}</b>. Dilo en voz alta y sigue.</p>`,hintSay:"Busca el grupo que se repite"}},
+  signo(){const L=lv("signo"),top=[10,20,50][L-1];const plus=Math.random()<.5;let a,b,c;
+    if(plus){a=R(1,top-1);b=R(1,top-a);c=a+b}else{a=R(2,top);b=R(1,a-1);c=a-b}
+    return{say:"¿Qué signo va? ¿Más o menos?",title:"➕➖ ¿Qué signo va?",body:eqHTML([a,"?",b,"=",c]).replace('<span class="qbox">?</span>','<span class="qbox" style="color:#2d1b4e">?</span>'),opts:["+",MINUS],ans:plus?"+":MINUS,cls:"signs",
+      hint:`<p>${c>a?`El resultado (${c}) es <b>más grande</b> que ${a}: se juntó. Es <b style="color:var(--plus)">+ más</b>.`:`El resultado (${c}) es <b>más pequeño</b> que ${a}: se quitó. Es <b style="color:var(--minus)">− menos</b>.`}</p>`,hintSay:c>a?"El resultado es más grande, entonces es más":"El resultado es más pequeño, entonces es menos"}},
+  sumaOresta(){const L=lv("sumaOresta"),N=pick(["Luna","Estrella","Nube","Brillo","Coral","Perla"]);const top=L===1?9:L===2?20:50;
+    const S1=[(a,b)=>`${N} tiene ${a} 🌸 flores. Le regalan ${b} más.`,(a,b)=>`En el castillo hay ${a} 🦄 unicornios. Llegan ${b} unicornios más.`,(a,b)=>`${N} juntó ${a} ⭐ estrellas y después encontró ${b}.`,(a,b)=>`Hay ${a} 🧁 cupcakes en una mesa y ${b} en otra. ¿Cuántos hay en total?`];
+    const S2=[(a,b)=>`${N} tenía ${a} 🎈 globos y se le volaron ${b}.`,(a,b)=>`Había ${a} 🍓 fresas. ${N} se comió ${b}.`,(a,b)=>`En el jardín había ${a} 🦋 mariposas y se fueron ${b}.`,(a,b)=>`${N} tenía ${a} 💎 gemas y regaló ${b}.`];
+    const plus=Math.random()<.5;let a=R(3,top),b=R(1,plus?Math.max(1,Math.min(top,99-a)):a-1);if(plus&&a+b>99)b=99-a;
+    const t=(plus?pick(S1):pick(S2))(a,b);
+    return{say:t+" ¿Es una suma o una resta?",title:"🤔 ¿Suma o resta?",body:`<div class="story">${t}</div>`,opts:["➕ Suma (junta)","➖ Resta (quita)"],ans:plus?"➕ Suma (junta)":"➖ Resta (quita)",cls:"words",
+      hint:`<p>Palabras de <b style="color:var(--plus)">suma</b>: le regalan, llegan, encontró, junta, en total.<br>Palabras de <b style="color:var(--minus)">resta</b>: se volaron, se comió, se fueron, regaló, quedan.</p>`,hintSay:plus?"Si llegan o le regalan, se junta: es suma":"Si se van o se los come, se quita: es resta"}},
+  suma10(){const a=R(0,lv("suma10")===1?6:9),b=R(1,10-a<1?1:10-a);const s=a+b;const e1=pick(EMO_A),e2=pick(EMO_B);
+    return{type:"input",say:"¿Cuánto es "+words(a)+" más "+words(b)+"?",title:"🍓 Suma: junta todo",body:eqHTML([a,"+",b,"=","?"])+`<div class="emo-group">${e1.repeat(a)}<span style="color:var(--plus)"> + </span>${e2.repeat(b)}</div>`,ans:s,
       hint:`<p>Empieza en ${a} y da ${b} saltitos hacia adelante.</p><div class="visual">${lineSVG(0,10,{mark:[a],hops:Array.from({length:b},(_,i)=>[a+i,a+i+1])})}</div>`,hintSay:"Empieza en "+words(a)+" y da "+words(b)+" saltitos hacia adelante"}},
+  dobles(){const L=lv("dobles"),n=R(1,[5,9,25][L-1]);const e=pick(EMO_A);
+    return{type:"input",say:"¿Cuánto es "+words(n)+" más "+words(n)+"?",title:"👯 Dobles",body:eqHTML([n,"+",n,"=","?"])+(n<=9?`<div class="emo-group">${e.repeat(n)}<br>${e.repeat(n)}</div>`:""),ans:2*n,
+      hint:`<p>Un doble es el mismo número dos veces. ${n} y ${n} más: cuenta ${n} desde ${n}.</p>`,hintSay:"Cuenta "+words(n)+" desde "+words(n)}},
+  amigos10(){const L=lv("amigos10");const goal=L===3?pick([10,20]):10;const a=R(goal===10?1:11,goal-1),ans=goal-a;
+    return{type:"input",say:"¿Cuánto le falta al "+words(a)+" para llegar a "+words(goal)+"?",title:`🔟 ¿Cuánto falta para ${goal}?`,body:eqHTML([a,"+","?","=",goal])+(goal===10?tenFrame(a):""),ans,
+      hint:`<p>${goal===10?"Cuenta los círculos vacíos.":"Primero llega a 10 y luego a 20."} Los amigos del 10 son: 1+9, 2+8, 3+7, 4+6, 5+5.</p>`,hintSay:"Cuenta los que faltan"}},
+  faltante(){const L=lv("faltante"),top=[10,20,50][L-1];const plus=L===1||Math.random()<.65;let a,b,c;
+    if(plus){a=R(1,top-1);b=R(1,top-a);c=a+b;return{type:"input",say:"¿Qué número se escondió? "+words(a)+" más cuánto es "+words(c)+"?",title:"🙈 ¿Qué número se escondió?",body:eqHTML([a,"+","?","=",c]),ans:b,
+      hint:`<p>Empieza en ${a} y cuenta hasta llegar a ${c}. ¿Cuántos saltos diste?</p>`+(c<=20?`<div class="visual">${lineSVG(Math.max(0,a-1),c+1,{mark:[a,c]})}</div>`:""),hintSay:"Empieza en "+words(a)+" y cuenta hasta "+words(c)}}
+    a=R(3,top);b=R(1,a-1);c=a-b;return{type:"input",say:words(a)+" menos cuánto es "+words(c)+"?",title:"🙈 ¿Qué número se escondió?",body:eqHTML([a,"-","?","=",c]),ans:b,
+      hint:`<p>De ${c} a ${a}, ¿cuántos faltan? Cuenta desde ${c} hasta ${a}.</p>`,hintSay:"Cuenta desde "+words(c)+" hasta "+words(a)}},
   suma3(){const top=lv("suma3")===1?10:18;let a,b,c;do{a=R(1,6);b=R(1,6);c=R(1,6)}while(a+b+c>top);
     const s=a+b+c,big=[a,b,c].sort((x,y)=>y-x);
-    return{type:"input",say:"Suma los tres números: "+words(a)+" más "+words(b)+" más "+words(c),title:`🍭 ${a} + ${b} + ${c} = ?`,body:"",ans:s,
+    return{type:"input",say:"Suma los tres números: "+words(a)+" más "+words(b)+" más "+words(c),title:"🍭 Suma tres números",body:eqHTML([a,"+",b,"+",c,"=","?"]),ans:s,
       hint:`<p>Suma primero los dos más grandes: ${big[0]} + ${big[1]} = ${big[0]+big[1]}. Luego suma ${big[2]}.</p>`,hintSay:"Suma primero los dos más grandes"}},
+  resta10(){const a=R(lv("resta10")===1?3:5,lv("resta10")===3?18:10),b=R(1,Math.min(a,9));const e=pick(["🧁","🌟","🍬","🎀"]);
+    return{type:"input",say:"¿Cuánto es "+words(a)+" menos "+words(b)+"?",title:"➖ Resta: quita",body:eqHTML([a,"-",b,"=","?"])+(a<=10?`<div class="emo-group">${e.repeat(a-b)}<span class="gone">${e.repeat(b)}</span></div>`:""),ans:a-b,
+      hint:`<p>Empieza en ${a} y da ${b} saltitos hacia atrás.</p><div class="visual">${lineSVG(Math.max(0,a-b-1),Math.max(10,a),{mark:[a],hops:Array.from({length:b},(_,i)=>[a-i,a-i-1])})}</div>`,hintSay:"Empieza en "+words(a)+" y da "+words(b)+" saltitos hacia atrás"}},
+  decenas(){const plus=Math.random()<.6;let a,b;if(plus){a=R(1,8);b=R(1,9-a)}else{a=R(2,9);b=R(1,a-1)}
+    const A=a*10,B=b*10,ans=plus?A+B:A-B;
+    return{type:"input",say:words(A)+(plus?" más ":" menos ")+words(B),title:"💯 Decenas exactas",body:eqHTML([A,plus?"+":"-",B,"=","?"]),ans,
+      hint:`<p>Piensa en decenas: ${a} ${plus?"+":MINUS} ${b} = ${plus?a+b:a-b}. Entonces ${A} ${plus?"+":MINUS} ${B} = ${ans}.</p>`,hintSay:"Piensa: "+words(a)+(plus?" más ":" menos ")+words(b)+" y agrega un cero"}},
   suma2d(){const L=lv("suma2d");let a,b,regroup=L===3?Math.random()<.6:L===2?Math.random()<.3:false;
     for(let t=0;t<100;t++){a=R(10,L===1?50:79);b=R(L===1?1:10,L===1?40:59);const us=a%10+b%10;if(a+b<=99&&(regroup?us>=10:us<10))break}
     const ua=a%10,ub=b%10,us=ua+ub;
     return{type:"input",say:"Suma: "+words(a)+" más "+words(b)+". Empieza por las unidades.",title:"🔢 Resuelve la suma",
-      body:`<div class="vert"><span class="h"></span><span class="h">D</span><span class="h">U</span><span></span><span>${Math.floor(a/10)}</span><span>${ua}</span><span>+</span><span>${Math.floor(b/10)}</span><span>${ub}</span><span class="l"></span></div>`,ans:a+b,
+      body:`<div class="vert"><span class="h"></span><span class="h">D</span><span class="h">U</span><span></span><span>${Math.floor(a/10)}</span><span>${ua}</span><span style="color:var(--plus)">+</span><span>${Math.floor(b/10)}</span><span>${ub}</span><span class="l"></span></div>`,ans:a+b,
       hint:`<p>Unidades: ${ua} + ${ub} = ${us}${us>=10?` → escribe ${us%10} y lleva 1 a las decenas`:""}.</p><p>Decenas: ${Math.floor(a/10)} + ${Math.floor(b/10)}${us>=10?" + 1":""} = ${Math.floor(a/10)+Math.floor(b/10)+(us>=10?1:0)}.</p>`,hintSay:"Suma primero las unidades"+(us>=10?" y lleva uno a las decenas":"")}},
-  resta10(){const a=R(lv("resta10")===1?3:5,10),b=R(1,a);const e=pick(["🧁","🌟","🍬","🎀"]);
-    return{type:"input",say:"¿Cuánto es "+words(a)+" menos "+words(b)+"?",title:`➖ ${a} − ${b} = ?`,body:`<div class="emo-group">${e.repeat(a-b)}<span style="opacity:.3;text-decoration:line-through">${e.repeat(b)}</span></div>`,ans:a-b,
-      hint:`<p>Empieza en ${a} y da ${b} saltitos hacia atrás.</p><div class="visual">${lineSVG(0,10,{mark:[a],hops:Array.from({length:b},(_,i)=>[a-i,a-i-1])})}</div>`,hintSay:"Empieza en "+words(a)+" y da "+words(b)+" saltitos hacia atrás"}},
+  resta2d(){const L=lv("resta2d");let a,b;for(let t=0;t<100;t++){a=R(L===1?15:20,L===1?49:99);b=R(L===1?1:10,a-1);if(b%10<=a%10&&b<a)break}
+    const ua=a%10,ub=b%10;
+    return{type:"input",say:"Resta: "+words(a)+" menos "+words(b)+". Empieza por las unidades.",title:"🧁 Resuelve la resta",
+      body:`<div class="vert"><span class="h"></span><span class="h">D</span><span class="h">U</span><span></span><span>${Math.floor(a/10)}</span><span>${ua}</span><span style="color:var(--minus)">${MINUS}</span><span>${Math.floor(b/10)||""}</span><span>${ub}</span><span class="l"></span></div>`,ans:a-b,
+      hint:`<p>Unidades: ${ua} ${MINUS} ${ub} = ${ua-ub}.</p><p>Decenas: ${Math.floor(a/10)} ${MINUS} ${Math.floor(b/10)} = ${Math.floor(a/10)-Math.floor(b/10)}.</p>`,hintSay:"Resta primero las unidades y después las decenas"}},
   problema(){const L=lv("problema");const N=pick(["Luna","Estrella","Nube","Brillo","Coral","Perla"]);const t=pick([
-      ()=>{const a=R(L===1?2:12,L===1?6:45),b=R(L===1?1:11,L===1?4:40);return[`🦄 ${N} tiene ${a} estrellas. Encuentra ${b} estrellas más. ¿Cuántas estrellas tiene ahora?`,a+b,`Juntar es sumar: ${a} + ${b}`]},
-      ()=>{const a=R(L===1?2:10,L===1?6:40),b=R(L===1?1:10,L===1?4:35);return[`🌸 En el jardín mágico hay ${a} flores rosadas y ${b} flores moradas. ¿Cuántas flores hay en total?`,a+b,`En total es sumar: ${a} + ${b}`]},
-      ()=>{const a=R(L===1?3:20,L===1?6:50),b=R(L===1?1:10,L===1?3:30);return[`🍭 ${N} compró ${a} caramelos el lunes y ${b} caramelos el martes. ¿Cuántos caramelos compró?`,a+b,`Juntar es sumar: ${a} + ${b}`]},
-      ()=>{const a=R(5,10),b=R(1,a-1);return[`🎈 ${N} tenía ${a} globos. Se le volaron ${b}. ¿Cuántos globos le quedan?`,a-b,`Si se van, es restar: ${a} − ${b}`]}
+      ()=>{const a=R(L===1?2:12,L===1?6:45),b=R(L===1?1:11,L===1?4:40);return[`🦄 ${N} tiene ${a} estrellas. Encuentra ${b} estrellas más. ¿Cuántas estrellas tiene ahora?`,a+b,`Encontrar más es juntar: <b style="color:var(--plus)">suma</b>. ${a} + ${b}`]},
+      ()=>{const a=R(L===1?2:10,L===1?6:40),b=R(L===1?1:10,L===1?4:35);return[`🌸 En el jardín mágico hay ${a} flores rosadas y ${b} flores moradas. ¿Cuántas flores hay en total?`,a+b,`En total es juntar: <b style="color:var(--plus)">suma</b>. ${a} + ${b}`]},
+      ()=>{const a=R(L===1?3:20,L===1?6:50),b=R(L===1?1:10,L===1?3:30);return[`🍭 ${N} compró ${a} caramelos el lunes y ${b} caramelos el martes. ¿Cuántos caramelos compró?`,a+b,`Juntar es <b style="color:var(--plus)">suma</b>: ${a} + ${b}`]},
+      ()=>{const a=R(5,L===1?10:30),b=R(1,Math.min(a-1,L===1?5:20));return[`🎈 ${N} tenía ${a} globos. Se le volaron ${b}. ¿Cuántos globos le quedan?`,a-b,`Si se van, es quitar: <b style="color:var(--minus)">resta</b>. ${a} ${MINUS} ${b}`]},
+      ()=>{const a=R(5,L===1?10:30),b=R(1,Math.min(a-1,L===1?5:20));return[`🍪 Había ${a} galletas. ${N} se comió ${b}. ¿Cuántas galletas quedan?`,a-b,`Comer es quitar: <b style="color:var(--minus)">resta</b>. ${a} ${MINUS} ${b}`]}
     ])();
-    return{type:"input",say:t[0],title:"📖 Historia para pensar",body:`<div class="story">${t[0]}</div>`,ans:t[1],hint:`<p>${t[2]}</p>`,hintSay:t[2].replace("−","menos").replace("+","más")}},
+    return{type:"input",say:t[0],title:"📖 Historia para pensar",body:`<div class="story">${t[0]}</div>`,ans:t[1],hint:`<p>${t[2]}</p>`,hintSay:t[2].replace(/<[^>]+>/g,"")}},
   terminos(){if(Math.random()<.5){const a=R(1,9),b=R(1,9),k=pick([0,1,2]);const parts=[a,b,a+b];const names=["sumando","sumando","total"];
       const show=parts.map((v,i)=>i===k?`<span style="color:#ff6fb5;text-decoration:underline">${v}</span>`:v);
-      return{say:"¿Cómo se llama el número rosado?",title:"🏷️ ¿Cómo se llama el número rosado?",body:`<div class="bignum" style="font-size:64px">${show[0]} + ${show[1]} = ${show[2]}</div>`,opts:["sumando","total","diferencia"],ans:names[k],cls:"three words",
+      return{say:"¿Cómo se llama el número rosado?",title:"🏷️ ¿Cómo se llama el número rosado?",body:`<div class="bignum" style="font-size:64px">${show[0]} <span style="color:var(--plus)">+</span> ${show[1]} = ${show[2]}</div>`,opts:["sumando","total","diferencia"],ans:names[k],cls:"three words",
         hint:"<p>En la suma: los números que se juntan son <b>sumandos</b>. El resultado es el <b>total</b>.</p>",hintSay:"Los números que se juntan son sumandos. El resultado es el total"}}
     const a=R(4,10),b=R(1,a),k=pick([0,1,2]);const parts=[a,b,a-b];const names=["minuendo","sustraendo","diferencia"];
     const show=parts.map((v,i)=>i===k?`<span style="color:#ff6fb5;text-decoration:underline">${v}</span>`:v);
-    return{say:"¿Cómo se llama el número rosado?",title:"🏷️ ¿Cómo se llama el número rosado?",body:`<div class="bignum" style="font-size:64px">${show[0]} − ${show[1]} = ${show[2]}</div>`,opts:["minuendo","sustraendo","diferencia"],ans:names[k],cls:"three words",
-      hint:"<p>En la resta: el primero es el <b>minuendo</b>, el que se quita es el <b>sustraendo</b> y el resultado es la <b>diferencia</b>.</p>",hintSay:"El primero es el minuendo, el que se quita es el sustraendo y el resultado es la diferencia"}}
+    return{say:"¿Cómo se llama el número rosado?",title:"🏷️ ¿Cómo se llama el número rosado?",body:`<div class="bignum" style="font-size:64px">${show[0]} <span style="color:var(--minus)">${MINUS}</span> ${show[1]} = ${show[2]}</div>`,opts:["minuendo","sustraendo","diferencia"],ans:names[k],cls:"three words",
+      hint:"<p>En la resta: el primero es el <b>minuendo</b>, el que se quita es el <b>sustraendo</b> y el resultado es la <b>diferencia</b>.</p>",hintSay:"El primero es el minuendo, el que se quita es el sustraendo y el resultado es la diferencia"}},
+  reloj(){const L=lv("reloj"),h=R(1,12),m=L===1?0:pick([0,30,30]);const f=(hh,mm)=>hh+":"+String(mm).padStart(2,"0");
+    const cand=new Set([f(h,m)]);while(cand.size<3){const hh=pick([h,(h%12)+1,((h+10)%12)+1,R(1,12)]);cand.add(f(hh,L===1?0:pick([0,30])))}
+    return{say:"¿Qué hora marca el reloj?",title:"⏰ ¿Qué hora es?",body:`<div class="visual">${clockSVG(h,m)}</div>`,opts:shuffle([...cand]),ans:f(h,m),cls:"three",
+      hint:`<p>La aguja <b style="color:#ff6fb5">corta (rosada)</b> marca la hora. La aguja <b style="color:#7b3fd0">larga (morada)</b> marca los minutos: arriba en el 12 es «en punto» (:00); abajo en el 6 es «y media» (:30).</p>`,hintSay:"La aguja corta marca la hora. Si la larga está en el doce, es en punto. Si está en el seis, es y media"}},
+  pictograma(){const L=lv("pictograma"),E=shuffle(["🍓","🍌","🍎","🧁","🌸","⭐"]).slice(0,3),max=L===1?5:8;
+    const cnt=E.map(()=>R(1,max));while(new Set(cnt).size<3){cnt[R(0,2)]=R(1,max)}
+    const body=`<div class="picto">${E.map((e,i)=>`<div><span style="width:44px">${e}</span><span>${e.repeat(cnt[i])}</span></div>`).join("")}</div>`;
+    const kind=pick(L===1?["cuantos","mas","menos"]:["cuantos","mas","menos","total","diferencia"]);
+    if(kind==="cuantos"){const i=R(0,2);return{say:"¿Cuántos hay de este dibujo?",title:`📊 ¿Cuántos ${E[i]} hay?`,body,opts:optsNum(cnt[i],max+2),ans:String(cnt[i]),hint:"<p>Cuenta uno por uno con el dedo.</p>",hintSay:"Cuenta uno por uno"}}
+    if(kind==="mas"||kind==="menos"){const v=kind==="mas"?Math.max(...cnt):Math.min(...cnt),i=cnt.indexOf(v);return{say:kind==="mas"?"¿Cuál tiene más?":"¿Cuál tiene menos?",title:kind==="mas"?"📊 ¿Cuál tiene MÁS?":"📊 ¿Cuál tiene MENOS?",body,opts:E.slice(),ans:E[i],cls:"three",hint:"<p>La fila más larga tiene más. La más corta tiene menos.</p>",hintSay:"Mira qué fila es más larga"}}
+    if(kind==="total"){const i=0,j=1;return{type:"input",say:"¿Cuántos hay de los dos primeros juntos?",title:`📊 ¿Cuántos ${E[i]} y ${E[j]} hay juntos?`,body,ans:cnt[i]+cnt[j],hint:`<p>Juntos es sumar: ${cnt[i]} + ${cnt[j]}.</p>`,hintSay:"Juntos es sumar"}}
+    const a=Math.max(cnt[0],cnt[1]),b=Math.min(cnt[0],cnt[1]),ia=cnt.indexOf(a),ib=ia===0?1:0;
+    return{type:"input",say:"¿Cuántos más hay de uno que de otro?",title:`📊 ¿Cuántos ${E[ia]} más que ${E[ib]} hay?`,body,ans:a-b,hint:`<p>Cuántos más es restar: ${a} ${MINUS} ${b}.</p>`,hintSay:"Cuántos más es restar"}}
 };
 const HOW={
   opts:"Mira o escucha la pregunta y toca la respuesta correcta.",
   input:"Escribe la respuesta con los números de abajo y toca OK.",
   order:"Toca los números en orden, uno por uno.",
-  ordinal:"Cuenta los unicornios desde la izquierda y toca el correcto."
+  ordinal:"Cuenta los unicornios desde la izquierda y toca el correcto.",
+  chart:"Busca el número en la tabla y tócalo.",
+  line:"Mira el signo: + salta adelante, − salta atrás. Toca el número donde llegas."
 };
 
 /* ================= motor de juego ================= */
 function startGame(ids,n,missionId,label){
-  const qs=[];let i=0;const list=ids.slice();
+  const qs=[];let i=0;const list=shuffle(ids);
   while(qs.length<n){const id=list[i%list.length];i++;try{const q=G[id]();q.id=id;qs.push(q)}catch(e){console.error(e)}}
   GAME={qs,i:0,res:[],tries:0,missionId,label,earned:0,startStars:S.stars};VIEW="game";render();window.scrollTo(0,0);
 }
 function viewGame(){
   const g=GAME,q=g.qs[g.i];const type=q.type||"opts";
-  let h=`<section class="card q"><div class="row spread"><button class="btn ghost small" id="quit">Salir</button><div class="dots">${g.qs.map((_,k)=>`<i class="${k<g.res.length?(g.res[k]?"ok":"no"):k===g.i?"now":""}"></i>`).join("")}</div></div>`;
+  let h=`<section class="card q"><div class="gtop"><button class="btn ghost small" id="quit">Salir</button><div class="mini" id="mini">${unicornSVG(S.look)}</div><div class="dots" style="flex:1">${g.qs.map((_,k)=>`<i class="${k<g.res.length?(g.res[k]?"ok":"no"):k===g.i?"now":""}"></i>`).join("")}</div></div>`;
   h+=`<div class="how" style="margin-top:12px"><span class="t">${HOW[type]}</span><button class="speak" id="say" aria-label="Escuchar">🔊</button></div>`;
   h+=`<div class="qtitle">${q.title}</div>${q.body||""}`;
-  if(type==="opts")h+=`<div class="opts ${q.cls||""}" ${(/one/.test(q.cls||""))?'style="grid-template-columns:1fr"':""}>${q.opts.map((o,k)=>`<button class="opt" data-k="${k}">${esc(o)}</button>`).join("")}</div>`;
+  if(type==="opts"){const signs=q.cls==="signs";
+    h+=`<div class="opts ${signs?"":q.cls||""}">${q.opts.map((o,k)=>signs?`<button class="opt ${o==="+"?"plus":"minus"}" data-k="${k}">${o}<small>${o==="+"?"más · junta":"menos · quita"}</small></button>`:`<button class="opt" data-k="${k}">${esc(o)}</button>`).join("")}</div>`}
   else if(type==="input")h+=`<div style="margin-top:10px"><span class="ans" id="ansBox">&nbsp;</span></div><div class="pad">${[1,2,3,4,5,6,7,8,9].map(d=>`<button data-d="${d}">${d}</button>`).join("")}<button data-d="del" aria-label="Borrar">⌫</button><button data-d="0">0</button><button data-d="ok" class="okb">OK</button></div>`;
   else if(type==="order")h+=`<div class="slots" id="slots">${q.order.map(()=>"<span></span>").join("")}</div><div class="items">${q.items.map((v,k)=>`<button data-k="${k}">${v}</button>`).join("")}</div>`;
   else if(type==="ordinal")h+=`<div class="ordrow">${q.row.map((e,k)=>`<button data-k="${k}" aria-label="unicornio">${e}</button>`).join("")}</div>`;
+  else if(type==="chart")h+=`<div class="chart">${Array.from({length:q.top+1},(_,v)=>`<button data-v="${v}">${v}</button>`).join("")}</div>`;
+  else if(type==="line")h+=`<div class="nline">${Array.from({length:q.to-q.from+1},(_,i)=>{const v=q.from+i;return `<button data-v="${v}">${v===q.start?'<span class="u">🦄</span>':""}${v}</button>`}).join("")}</div>`;
   h+=`<div id="hintBox"></div></section>`;
   $("#main").innerHTML=h;
   $("#quit").onclick=()=>{GAME=null;setView("hoy")};
@@ -485,6 +694,7 @@ function viewGame(){
   if(S.readAuto)setTimeout(()=>say(q.say),250);
   if(type==="opts")document.querySelectorAll(".opt").forEach(b=>b.onclick=()=>answer(q.opts[+b.dataset.k]===q.ans,b,()=>{document.querySelectorAll(".opt").forEach(x=>{if(q.opts[+x.dataset.k]===q.ans)x.classList.add("show")})}));
   else if(type==="ordinal")document.querySelectorAll(".ordrow button").forEach(b=>b.onclick=()=>answer(+b.dataset.k===q.ans,b,()=>{document.querySelectorAll(".ordrow button")[q.ans].classList.add("show")}));
+  else if(type==="chart"||type==="line"){const sel=type==="chart"?".chart button":".nline button";document.querySelectorAll(sel).forEach(b=>b.onclick=()=>answer(+b.dataset.v===q.ans,b,()=>{const t=document.querySelector(sel+'[data-v="'+q.ans+'"]');t&&t.classList.add("show")}))}
   else if(type==="input"){let v="";const box=$("#ansBox");
     document.querySelectorAll(".pad button").forEach(b=>b.onclick=()=>{const d=b.dataset.d;if(g.locked)return;
       if(d==="del")v=v.slice(0,-1);else if(d==="ok"){if(!v)return;answer(+v===q.ans,box,()=>{box.textContent=q.ans},()=>{v="";box.innerHTML="&nbsp;"});return}
@@ -502,98 +712,193 @@ function answer(ok,el,reveal,reset){
   if(g.tries===1){showHint(q);if(reset)setTimeout(reset,400);return}
   g.locked=true;reveal&&reveal();
   const hb=$("#hintBox");hb.insertAdjacentHTML("beforeend",`<div style="margin-top:12px"><p>La respuesta es <b>${esc(q.ans)}</b>.</p><button class="btn" id="nextQ">Siguiente ➜</button></div>`);
-  say("La respuesta es "+(typeof q.ans==="number"?words(q.ans):q.ans));
+  say("La respuesta es "+(typeof q.ans==="number"?words(q.ans):String(q.ans).replace("➕","").replace("➖","")));
   $("#nextQ").onclick=()=>{g.locked=false;record(q.id,false);g.res.push(false);nextQ()};
 }
 function finishQ(first){
   const g=GAME,q=g.qs[g.i];g.locked=true;record(q.id,first);g.res.push(first);
-  if(first){g.earned++;S.stars++;save();renderHud()}
-  say(pick(first?["¡Muy bien!","¡Excelente!","¡Lo lograste!","¡Brillante!","¡Genial!"]:["¡Bien! Lo corregiste.","¡Eso es!"]));
+  if(first){g.earned++;S.stars++;S.gems++;save();renderHud()}
+  const mini=$("#mini");if(mini){mini.classList.remove("hop");void mini.offsetWidth;mini.classList.add("hop")}
+  say(pick(first?["¡Muy bien!","¡Excelente!","¡Lo lograste!","¡Brillante!","¡Genial!","¡Qué inteligente!","¡Mágico!"]:["¡Bien! Lo corregiste.","¡Eso es!"]));
   setTimeout(()=>{g.locked=false;nextQ()},first?1100:1300);
 }
 function nextQ(){const g=GAME;g.i++;g.tries=0;if(g.i>=g.qs.length)return endGame();viewGame();window.scrollTo(0,0)}
 function endGame(){
-  const g=GAME,ok=g.res.filter(Boolean).length;let bonus=0;
-  if(g.missionId){const d=today();S.missions[d]=S.missions[d]||[];if(!S.missions[d].includes(g.missionId)){S.missions[d].push(g.missionId);bonus=3;
-      if(MISSIONS.every(m=>S.missions[d].includes(m.id)))bonus+=5}}
-  S.days[today()]=true;save();
-  const total=g.earned+bonus;GAME=null;
-  S.stars+=bonus;save();checkPrizes(g.startStars);
-  const allDone=g.missionId&&MISSIONS.every(m=>(S.missions[today()]||[]).includes(m.id));
-  $("#main").innerHTML=`<section class="card" style="text-align:center"><div class="uni">${unicornSVG(S.look,240)}</div>
+  const g=GAME,ok=g.res.filter(Boolean).length,d=today();let bonusS=0,bonusG=0,stick=null,chest=false;
+  if(g.missionId==="mx"){S.extras[d]=(S.extras[d]||0)+1;bonusS=2;bonusG=3;if(Math.random()<.4)stick=giveSticker()}
+  else if(g.missionId){S.missions[d]=S.missions[d]||[];if(!S.missions[d].includes(g.missionId)){S.missions[d].push(g.missionId);bonusS=3;bonusG=5;stick=giveSticker();
+      if(MISSIONS.every(m=>S.missions[d].includes(m.id))&&!S.chests[d]){S.chests[d]=true;chest=true;bonusS+=5;bonusG+=15}}
+    else{bonusS=1;bonusG=2}}
+  S.days[d]=true;S.stars+=bonusS;S.gems+=bonusG;save();
+  const totalS=g.earned+bonusS,totalG=g.earned+bonusG;GAME=null;
+  let chestStick=null;if(chest)chestStick=giveSticker();
+  checkPrizes(g.startStars);
+  $("#main").innerHTML=`<section class="card" style="text-align:center"><div class="uni"><div class="mini hop" style="width:220px">${unicornSVG(S.look)}</div></div>
     <h1>${ok>=g.qs.length-1?"¡Increíble!":ok>=g.qs.length/2?"¡Muy bien!":"¡Buen trabajo!"}</h1>
     <p style="font-size:26px;font-weight:800">${ok} de ${g.qs.length} a la primera</p>
-    <p style="font-size:24px">Ganaste ⭐ ${total}${bonus?` (incluye ${bonus} de premio)`:""}</p>
-    ${allDone?`<p class="tag" style="font-size:18px">🌈 ¡Completaste las 3 misiones de hoy!</p>`:""}
-    <div class="row" style="justify-content:center;margin-top:12px"><button class="btn" id="goHome">Continuar</button></div></section>`;
-  say(allDone?"¡Completaste todas las misiones de hoy! Tu unicornio está feliz.":"¡Muy bien! Ganaste "+words(total)+" estrellas.");
+    <p style="font-size:24px">Ganaste ⭐ ${totalS} y 💎 ${totalG}</p>
+    ${stick?`<div class="card" style="background:#fff7d6"><div class="sticker-new">${stick.s[0]}</div><b>${stick.isNew?"¡Sticker nuevo para tu álbum!":"Sticker repetido"}: ${stick.s[1]}</b></div>`:""}
+    ${chest?`<div class="card" style="background:#fff0fa"><div style="font-size:64px">🎁</div><b>¡Abriste el cofre del día!</b><p>+5 ⭐ · +15 💎 · sticker ${chestStick.s[0]} ${chestStick.s[1]}</p></div>`:""}
+    <div class="row" style="justify-content:center;margin-top:12px"><button class="btn" id="goHome">Continuar</button><button class="btn pink" id="goMore">✨ Otra misión</button></div></section>`;
+  confetti();flushCelebrate();
+  say(chest?"¡Abriste el cofre del día! Tu unicornio está feliz.":"¡Muy bien! Ganaste "+words(Math.min(99,totalS))+" estrellas.");
   $("#goHome").onclick=()=>setView("hoy");
+  $("#goMore").onclick=()=>startExtra();
 }
+function startExtra(){
+  const ids=Object.keys(G);const weak=ids.filter(id=>{const a=acc(id);return a>=0&&a<.75});
+  const core=["signo","sumaOresta","suma10","resta10","escucha","dictado","serie","recta","faltante","tabla100"];
+  const pool=shuffle([...weak,...weak,...core,...shuffle(ids).slice(0,6)]);
+  startGame([...new Set(pool)].slice(0,8),QN,"mx","Misión extra");
+}
+
+/* ================= juegos mágicos (arcade) ================= */
+function arcadeEnd(name,score,gems,stars){
+  const st0=S.stars;S.gems+=gems;S.stars+=stars;S.days[today()]=true;S.arcade[name]=Math.max(S.arcade[name]||0,score);save();checkPrizes(st0);
+  ARC=null;$("#main").innerHTML=`<section class="card" style="text-align:center"><div class="uni"><div class="mini hop" style="width:200px">${unicornSVG(S.look)}</div></div><h1>¡Lo hiciste!</h1><p style="font-size:24px">Ganaste 💎 ${gems} y ⭐ ${stars}</p><p class="muted">Récord: ${S.arcade[name]}</p><div class="row" style="justify-content:center"><button class="btn" id="again">Jugar otra vez</button><button class="btn ghost" id="back">Volver</button></div></section>`;
+  confetti();flushCelebrate();say("¡Lo hiciste! Ganaste "+words(Math.min(99,gems))+" gemas.");
+  $("#again").onclick=()=>startArcade(name);$("#back").onclick=()=>setView("magia");
+}
+function opQuestion(){const L=Math.max(lv("suma10"),lv("resta10"));const plus=Math.random()<.5;let a,b;
+  if(plus){a=R(1,L===1?6:12);b=R(1,L===1?10-a<1?1:10-a:9)}else{a=R(3,L===1?10:18);b=R(1,Math.min(a-1,9))}
+  return{t:`${a} ${plus?"+":MINUS} ${b}`,ans:plus?a+b:a-b,plus}}
+function startArcade(name){
+  try{speechSynthesis.cancel()}catch(e){}
+  VIEW="arcade";render();const main=$("#main");
+  if(name==="memoria"){
+    const L=lv("suma10");const pairs=[];const used=new Set();
+    while(pairs.length<6){const q=Math.random()<.3?(()=>{const n=R(L===1?0:10,L===1?20:60);return{a:String(n),b:words(n),k:"n"+n}})():(()=>{const o=opQuestion();return{a:o.t,b:String(o.ans),k:"o"+o.ans}})();
+      if(!used.has(q.k)&&!used.has(q.a)&&!used.has(q.b)){used.add(q.k);used.add(q.a);used.add(q.b);pairs.push(q)}}
+    const cards=shuffle(pairs.flatMap((p,i)=>[{t:p.a,i},{t:p.b,i}]));let open=[],done=0,moves=0,lock=false;
+    main.innerHTML=`<section class="card q"><div class="row spread"><button class="btn ghost small" id="quit">Salir</button><b id="mv">Intentos: 0</b></div><div class="qtitle">🃏 Memoria mágica</div><p class="small muted">Busca las parejas: la operación con su resultado, o el número con su nombre.</p><div class="memo">${cards.map((c,k)=>`<button data-k="${k}">${esc(c.t)}</button>`).join("")}</div></section>`;
+    say("Busca las parejas. La operación con su resultado.");
+    $("#quit").onclick=()=>setView("magia");
+    main.querySelectorAll(".memo button").forEach(b=>b.onclick=()=>{if(lock||b.classList.contains("up")||b.classList.contains("done"))return;b.classList.add("up");open.push(b);
+      if(open.length===2){moves++;$("#mv").textContent="Intentos: "+moves;const[x,y]=open;open=[];
+        if(cards[+x.dataset.k].i===cards[+y.dataset.k].i){x.classList.add("done");y.classList.add("done");sparkle(y);done++;tone(880);if(done===6)setTimeout(()=>arcadeEnd("memoria",Math.max(1,20-moves),Math.max(4,14-Math.max(0,moves-6)),3),700)}
+        else{lock=true;setTimeout(()=>{x.classList.remove("up");y.classList.remove("up");lock=false},950)}}});
+  }
+  if(name==="estrellas"){
+    let round=0,score=0;const ROUNDS=10;
+    main.innerHTML=`<section class="card q"><div class="row spread"><button class="btn ghost small" id="quit">Salir</button><b id="sc">⭐ 0 / ${ROUNDS}</b></div><div class="qtitle" id="op">…</div><p class="small muted">Atrapa la estrella con el resultado correcto antes de que caiga.</p><div class="arena" id="arena"></div></section>`;
+    $("#quit").onclick=()=>{round=99;setView("magia")};
+    const arena=$("#arena");
+    function next(){if(round>=ROUNDS)return arcadeEnd("estrellas",score,score+2,Math.ceil(score/2));round++;
+      const o=opQuestion();$("#op").innerHTML=`${o.t.replace("+",'<span style="color:var(--plus)">+</span>').replace(MINUS,'<span style="color:var(--minus)">'+MINUS+'</span>')} = ?`;say(o.t+" ¿cuánto es?");
+      const vals=shuffle([o.ans,...numDistract(o.ans,20,2)]);arena.innerHTML="";const w=arena.clientWidth||600;const dur=Math.max(5,8.5-round*.25);let doneR=false;
+      vals.forEach((v,i)=>{const s=document.createElement("button");s.className="fall";s.textContent=v;s.style.left=Math.round((w/3)*i+(w/3-86)/2)+"px";s.style.animationDuration=(dur+Math.random()*1.2)+"s";s.style.animationDelay=(Math.random()*.6)+"s";
+        s.onclick=()=>{if(doneR)return;if(v===o.ans){doneR=true;s.classList.add("good");score++;$("#sc").textContent="⭐ "+score+" / "+ROUNDS;sparkle(s);tone(990);setTimeout(next,700)}else{s.classList.add("bad");tone(200);say("Casi. Busca otro.")}};
+        s.addEventListener("animationend",()=>{if(!doneR&&v===o.ans){doneR=true;say("Era "+words(o.ans));setTimeout(next,900)}});arena.appendChild(s)})}
+    next();
+  }
+  if(name==="burbujas"){
+    let round=0,mistakes=0;const ROUNDS=3;
+    main.innerHTML=`<section class="card q"><div class="row spread"><button class="btn ghost small" id="quit">Salir</button><b id="rd">Ronda 1 / ${ROUNDS}</b></div><div class="qtitle" id="ins">…</div><div class="arena" id="arena"></div></section>`;
+    $("#quit").onclick=()=>setView("magia");const arena=$("#arena");
+    function next(){if(round>=ROUNDS)return arcadeEnd("burbujas",Math.max(1,10-mistakes),Math.max(3,9-mistakes),2);round++;$("#rd").textContent="Ronda "+round+" / "+ROUNDS;
+      const m=maxN("ordenar"),asc=round!==2,set=new Set();while(set.size<6)set.add(R(0,m));const nums=[...set],order=nums.slice().sort((a,b)=>asc?a-b:b-a);let pos=0;
+      $("#ins").textContent=asc?"🫧 Revienta de MENOR a MAYOR":"🫧 Revienta de MAYOR a MENOR";say(asc?"Revienta las burbujas de menor a mayor":"Revienta las burbujas de mayor a menor");
+      arena.innerHTML="";const w=arena.clientWidth||600,hh=arena.clientHeight||380,cells=shuffle([0,1,2,3,4,5,6,7,8]).slice(0,6);
+      nums.forEach((v,i)=>{const b=document.createElement("button");b.className="bub";b.textContent=v;const c=cells[i];b.style.left=Math.round((c%3)*(w/3)+(w/3-88)/2+R(-10,10))+"px";b.style.top=Math.round(Math.floor(c/3)*(hh/3)+(hh/3-88)/2+R(-6,6))+"px";b.style.animationDelay=(Math.random()*2)+"s";
+        b.onclick=()=>{if(b.classList.contains("pop"))return;if(v===order[pos]){pos++;b.classList.add("pop");tone(700+pos*60);if(pos===6)setTimeout(next,600)}else{mistakes++;b.classList.remove("bad");void b.offsetWidth;b.classList.add("bad");tone(200);say("Busca el "+(asc?"más pequeño":"más grande"))}};arena.appendChild(b)})}
+    next();
+  }
+}
+let AC=null;function tone(f){try{AC=AC||new (window.AudioContext||window.webkitAudioContext)();const o=AC.createOscillator(),g=AC.createGain();o.frequency.value=f||660;o.connect(g);g.connect(AC.destination);g.gain.setValueAtTime(.08,AC.currentTime);g.gain.exponentialRampToValueAtTime(.001,AC.currentTime+.15);o.start();o.stop(AC.currentTime+.15)}catch(e){}}
 
 /* ================= efectos ================= */
 function sparkle(el){try{const r=el.getBoundingClientRect?el.getBoundingClientRect():{left:innerWidth/2,top:innerHeight/2,width:0,height:0};
   for(let i=0;i<7;i++){const s=document.createElement("span");s.className="spark";s.textContent=pick(["✨","⭐","💖","🌟"]);
     s.style.left=(r.left+r.width/2)+"px";s.style.top=(r.top+r.height/2)+"px";s.style.setProperty("--dx",R(-90,90)+"px");s.style.setProperty("--dy",R(-110,-20)+"px");
     document.body.appendChild(s);setTimeout(()=>s.remove(),1000)}}catch(e){}}
-function celebrate(title,text,em){const d=document.createElement("div");d.className="celebrate";
+function confetti(){try{for(let i=0;i<26;i++){const c=document.createElement("span");c.className="confetti";c.textContent=pick(["🎉","✨","💖","⭐","🌈","🦄","💎"]);c.style.left=R(0,96)+"vw";c.style.animationDuration=(1.6+Math.random()*1.6)+"s";c.style.animationDelay=(Math.random()*.5)+"s";document.body.appendChild(c);setTimeout(()=>c.remove(),3800)}}catch(e){}}
+const CQ=[];function queueCelebrate(t,x,e){CQ.push([t,x,e])}
+function flushCelebrate(){if(!CQ.length)return;const items=CQ.splice(0);const t=items.length>1?"¡Sorpresas mágicas!":items[0][0];const x=items.map(i=>(items.length>1?i[0]+" ":"")+i[1]).join(" ");setTimeout(()=>celebrate(t,x,items.map(i=>i[2]).join(" ")),700)}
+function celebrate(title,text,em,after){const d=document.createElement("div");d.className="celebrate";
   d.innerHTML=`<div class="card"><div style="font-size:64px">${em||"🦄"}</div><h2>${esc(title)}</h2><p>${esc(text)}</p><button class="btn pink">¡Sí!</button></div>`;
-  document.body.appendChild(d);say(title+" "+text);d.querySelector("button").onclick=()=>d.remove()}
+  document.body.appendChild(d);confetti();say(title+" "+text);d.querySelector("button").onclick=()=>{d.remove();after&&after()}}
 function toast(t){const d=document.createElement("div");d.className="toast";d.textContent=t;document.body.appendChild(d);setTimeout(()=>d.remove(),2200)}
 
 /* ================= vistas ================= */
 function upcoming(){return DATA.events.filter(e=>daysUntil(e.date)>=0).sort((a,b)=>a.date<b.date?-1:1)}
-function missionsToday(){
-  const ev=upcoming().find(e=>daysUntil(e.date)<=4);
-  const list=MISSIONS.slice();
-  if(ev){list[2]={id:"m3",cls:"mev",em:"📝",title:"Repaso: "+ev.title,sub:(daysUntil(ev.date)===0?"¡Es hoy! ":daysUntil(ev.date)===1?"Es mañana. ":"Es el "+DIA[parseD(ev.date).getDay()]+". ")+ev.detail,games:ev.skills}}
-  return list;
-}
+function eventMission(){const ev=upcoming().find(e=>daysUntil(e.date)<=4);if(!ev)return null;
+  return{id:"mev-"+ev.date,cls:"mev",em:"📝",title:"Repaso: "+ev.title,sub:(daysUntil(ev.date)===0?"¡Es hoy! ":daysUntil(ev.date)===1?"Es mañana. ":"Es el "+DIA[parseD(ev.date).getDay()]+". ")+ev.detail,games:ev.skills}}
 function viewHoy(){
-  const d=new Date(),done=S.missions[today()]||[],ms=missionsToday();
-  const nm=S.name?", "+esc(S.name):"";
-  let h=`<h1>¡Hola${nm}! 🦄</h1><p class="muted" style="margin:0">Hoy es ${DIA[d.getDay()]}. Completa las 3 misiones y tu unicornio ganará premios.</p>`;
-  h+=`<div class="card" style="display:flex;gap:14px;align-items:center;padding:12px 16px"><div style="width:120px;flex:none">${unicornSVG(S.look)}</div><div><b style="font-size:22px">${levelOf(S.stars).name}</b><br><span class="muted small">${nextPrizeText()}</span></div></div>`;
-  ms.forEach((m,k)=>{const ok=done.includes(m.id);
+  const d=new Date(),done=S.missions[today()]||[],ev=eventMission();
+  const nm=S.name?", "+esc(S.name):"";const un=S.uniName?esc(S.uniName):"Tu unicornio";
+  const core=MISSIONS.filter(m=>done.includes(m.id)).length,allDone=core===3;
+  let h=`<h1>¡Hola${nm}! 🦄</h1><p class="muted" style="margin:0">Hoy es ${DIA[d.getDay()]}. ${allDone?"¡Ya hiciste las 3 misiones! Sigue con misiones extra o juegos mágicos.":"Completa las 3 misiones para abrir el cofre del día 🎁."}</p>`;
+  h+=`<div class="card" style="display:flex;gap:14px;align-items:center;padding:12px 16px"><div style="width:120px;flex:none">${unicornSVG(S.look)}</div><div><b style="font-size:22px">${un} · ${levelOf(S.stars).name}</b><br><span class="muted small">${nextPrizeText()}</span><br><span class="small">💎 ${S.gems} gemas para la tienda · 📒 ${Object.keys(S.stickers).length} de ${STICKERS.length} stickers</span></div></div>`;
+  MISSIONS.forEach((m,k)=>{const ok=done.includes(m.id);
     h+=`<button class="mission ${m.cls} ${ok?"done":""}" data-m="${k}"><span class="em">${m.em}</span><span><span class="small" style="opacity:.9">MISIÓN ${k+1} · ${QN} preguntas</span><b>${esc(m.title)}</b><span>${esc(m.sub)}</span></span>${ok?'<span class="ok">✅</span>':""}</button>`});
+  h+=`<div class="chest"><span class="em">${S.chests[today()]?"🎉":"🎁"}</span><div><b style="font-size:20px">${S.chests[today()]?"¡Cofre del día abierto!":"Cofre del día"}</b><br><span class="small muted">${S.chests[today()]?"Vuelve mañana por otro cofre.":"Misiones completas: "+core+" de 3. Premio: 5 ⭐, 15 💎 y un sticker."}</span></div></div>`;
+  if(ev){const ok=done.includes(ev.id);h+=`<button class="mission mev ${ok?"done":""}" data-ev="1"><span class="em">${ev.em}</span><span><span class="small" style="opacity:.9">REPASO ESPECIAL · ${QN} preguntas</span><b>${esc(ev.title)}</b><span>${esc(ev.sub)}</span></span>${ok?'<span class="ok">✅</span>':""}</button>`}
+  h+=`<button class="mission mx" id="extra"><span class="em">✨</span><span><span class="small" style="opacity:.9">SIN LÍMITE · ${QN} preguntas</span><b>Misión extra</b><span>Preguntas sorpresa de todo, con más práctica en lo que cuesta. ${S.extras[today()]?"Hoy hiciste "+S.extras[today()]+".":""}</span></span></button>`;
   const up=upcoming();
   if(up.length){h+=`<div class="card"><h2>📅 Lo que viene</h2>`+up.map(e=>{const dd=parseD(e.date),n=daysUntil(e.date);
       return `<div class="event" style="margin:8px 0"><div class="cal"><b>${dd.getDate()}</b>${MES[dd.getMonth()]}</div><div><b>${esc(e.title)}</b> <span class="tag">${n===0?"hoy":n===1?"mañana":"en "+n+" días"}</span><br><span class="small muted">${esc(e.detail)}</span></div></div>`}).join("")+`</div>`}
   $("#main").innerHTML=h;
-  document.querySelectorAll("[data-m]").forEach(b=>b.onclick=()=>{const m=ms[+b.dataset.m];startGame(m.games,QN,m.id,m.title)});
+  document.querySelectorAll("[data-m]").forEach(b=>b.onclick=()=>{const m=MISSIONS[+b.dataset.m];startGame(m.games,QN,m.id,m.title)});
+  const eb=document.querySelector("[data-ev]");if(eb)eb.onclick=()=>startGame(ev.games,QN,ev.id,ev.title);
+  $("#extra").onclick=startExtra;
 }
-function nextPrizeText(){const nx=ITEMS.find(x=>S.stars<x.at);return nx?`Te faltan ⭐ ${nx.at-S.stars} para: ${nx.em} ${nx.name}`:"¡Ganaste todos los premios!"}
+function nextPrizeText(){const nx=ITEMS.find(x=>S.stars<x.at);return nx?`Te faltan ⭐ ${nx.at-S.stars} para: ${nx.em} ${nx.name}`:"¡Ganaste todos los premios de nivel!"}
 function viewJuegos(){
-  let h=`<h1>🏰 Juegos</h1><p class="muted" style="margin:0">Elige un juego. Cada juego tiene ${QN} preguntas.</p>`;
+  let h=`<h1>🏰 Juegos</h1><p class="muted" style="margin:0">${Object.keys(GAMES).length} juegos. Cada uno tiene ${QN} preguntas y sube de nivel solo.</p>`;
   Object.entries(ISLANDS).forEach(([k,isl])=>{
     h+=`<div class="card island"><h2>${isl.em} ${isl.n}</h2><div class="games">`+Object.entries(GAMES).filter(([,g])=>g.isl===k).map(([id,g])=>{const a=acc(id);
       return `<button class="game" data-g="${id}"><b>${g.em} ${g.n}</b><span>${g.d}</span><br><span class="st">Nivel ${lv(id)}${a>=0?" · "+Math.round(a*100)+"% bien":""}</span></button>`}).join("")+`</div></div>`});
   $("#main").innerHTML=h;
   document.querySelectorAll("[data-g]").forEach(b=>b.onclick=()=>startGame([b.dataset.g],QN,null,GAMES[b.dataset.g].n));
 }
+function viewMagia(){
+  const A=[["memoria","🃏","Memoria mágica","Encuentra parejas: operación y resultado, número y nombre."],["estrellas","🌠","Atrapa estrellas","Toca la estrella con el resultado antes de que caiga."],["burbujas","🫧","Burbujas en orden","Revienta las burbujas de menor a mayor."]];
+  let h=`<h1>✨ Juegos mágicos</h1><p class="muted" style="margin:0">Juega todas las veces que quieras y gana gemas 💎 para la tienda.</p><div class="card"><div class="games">`+
+    A.map(([id,e,n,d])=>`<button class="game magic" data-a="${id}"><b style="font-size:24px">${e} ${n}</b><span>${d}</span><br><span class="st">Récord: ${S.arcade[id]||0}</span></button>`).join("")+`</div></div>`;
+  h+=`<div class="card"><h2>🛍️ ¿Para qué son las gemas?</h2><p style="margin:0">Con las gemas compras ropa, amiguitos y lugares para tu unicornio en la <b>Tienda</b>. Las ganas respondiendo bien, terminando misiones y jugando aquí.</p><div class="row" style="margin-top:10px"><button class="btn pink" id="toShop">Ir a la tienda</button></div></div>`;
+  $("#main").innerHTML=h;
+  document.querySelectorAll("[data-a]").forEach(b=>b.onclick=()=>startArcade(b.dataset.a));
+  $("#toShop").onclick=()=>{UTAB="tienda";setView("unicornio")};
+}
+function isOn(it){const l=S.look;const v=l[it.type];if(["mane","body","scene","pet"].includes(it.type))return v===it.val;if(it.type==="horn")return v===it.val;return v===it.val||(it.val===true&&v===true)}
+function toggleItem(it){const l=S.look,on=isOn(it),def=defaultLook();
+  if(["mane","body","scene","pet","horn"].includes(it.type))l[it.type]=on?def[it.type]:it.val;else l[it.type]=on?false:it.val}
 function viewUnicornio(){
   const L=levelOf(S.stars);
-  let h=`<h1>🦄 Mi unicornio</h1><div class="card uni">${unicornSVG(S.look,340)}<b style="font-size:26px">${L.name}</b><span class="muted">⭐ ${S.stars}${L.next?` · faltan ${L.to-S.stars} para ${L.next}`:""}</span></div>`;
-  h+=`<div class="card"><h2>🎁 Premios</h2><p class="small muted" style="margin-top:0">Toca un premio ganado para ponérselo o quitárselo.</p><div class="items-grid">`+ITEMS.map(it=>{const got=S.stars>=it.at,on=isOn(it);
-    return `<button class="item ${got?"":"lock"} ${on?"on":""}" data-it="${it.id}" ${got?"":"disabled"}><b>${it.em} ${it.name}</b>${got?(on?"Puesto ✅":"Toca para ponérselo"):"🔒 Se gana con ⭐ "+it.at}</button>`}).join("")+`</div></div>`;
+  let h=`<h1>🦄 ${S.uniName?esc(S.uniName):"Mi unicornio"}</h1><div class="card uni">${unicornSVG(S.look,340)}<b style="font-size:24px">${L.name}</b><span class="muted">⭐ ${S.stars}${L.next?` · faltan ${L.to-S.stars} para ${L.next}`:""} · 💎 ${S.gems}</span></div>`;
+  h+=`<div class="subtabs"><button data-t="vestir" class="${UTAB==="vestir"?"on":""}">👗 Vestir</button><button data-t="tienda" class="${UTAB==="tienda"?"on":""}">🛍️ Tienda</button><button data-t="album" class="${UTAB==="album"?"on":""}">📒 Álbum</button></div>`;
+  if(UTAB==="vestir"){
+    const mine=[...ITEMS.filter(it=>S.stars>=it.at),...SHOP.filter(it=>S.owned[it.id])];
+    h+=`<div class="card"><h2>👗 Lo que tienes</h2><p class="small muted" style="margin-top:0">Toca para ponérselo o quitárselo.</p><div class="items-grid">`+(mine.length?mine.map(it=>`<button class="item ${isOn(it)?"on":""}" data-it="${it.id}"><b>${it.em} ${it.name}</b>${isOn(it)?"Puesto ✅":"Toca para ponérselo"}</button>`).join(""):`<p class="muted">Gana estrellas y gemas para tener cosas nuevas.</p>`)+`</div></div>`;
+    h+=`<div class="card"><h2>🏅 Premios de nivel</h2><div class="items-grid">`+ITEMS.filter(it=>S.stars<it.at).map(it=>`<div class="item lock"><b>${it.em} ${it.name}</b>🔒 Se gana con ⭐ ${it.at}</div>`).join("")+`</div></div>`;
+    h+=`<div class="card"><h2>✏️ Nombre de tu unicornio</h2><div class="row"><input type="text" id="uniName" maxlength="16" value="${esc(S.uniName)}" placeholder="Escribe un nombre" style="flex:1;min-width:180px"><button class="btn small" id="uniSave">Guardar</button></div></div>`;
+  }else if(UTAB==="tienda"){
+    h+=`<div class="card"><div class="row spread"><h2>🛍️ Tienda mágica</h2><span class="tag" style="font-size:18px">💎 ${S.gems}</span></div><div class="items-grid">`+SHOP.map(it=>{const own=!!S.owned[it.id],can=S.gems>=it.price;
+      return `<div class="item ${own?"on":""}"><b>${it.em} ${it.name}</b>${own?"Ya es tuyo ✅":`<span class="price">💎 ${it.price}</span> <button class="btn small ${can?"gold":"ghost"}" data-buy="${it.id}" ${can?"":"disabled"} style="margin-left:6px">${can?"Comprar":"Faltan "+(it.price-S.gems)}</button>`}</div>`}).join("")+`</div></div>`;
+  }else{
+    const got=Object.keys(S.stickers).length;
+    h+=`<div class="card"><div class="row spread"><h2>📒 Álbum de stickers</h2><span class="tag" style="font-size:18px">${got} / ${STICKERS.length}</span></div><p class="small muted" style="margin-top:0">Ganas un sticker por cada misión del día y en el cofre. A veces sale uno en la misión extra.</p><div class="album">`+
+      STICKERS.map(([e,n])=>{const c=S.stickers[e]||0;return `<div class="stk ${c?"":"no"}"><span class="e">${e}</span>${c?esc(n)+(c>1?" ×"+c:""):"???"}</div>`}).join("")+`</div></div>`;
+  }
   const dias=Object.keys(S.days).length;
   h+=`<div class="card"><h2>📆 Días mágicos</h2><p style="margin:0">Has entrenado <b>${dias}</b> ${dias===1?"día":"días"}.</p><div style="font-size:30px;margin-top:6px">${"🌟".repeat(Math.min(dias,30))||"Aún no hay días. ¡Empieza hoy!"}</div></div>`;
   $("#main").innerHTML=h;
-  document.querySelectorAll("[data-it]").forEach(b=>b.onclick=()=>{const it=ITEMS.find(x=>x.id===b.dataset.it);toggleItem(it);save();viewUnicornio()});
+  document.querySelectorAll("[data-t]").forEach(b=>b.onclick=()=>{UTAB=b.dataset.t;viewUnicornio()});
+  document.querySelectorAll("[data-it]").forEach(b=>b.onclick=()=>{const it=ITEMS.find(x=>x.id===b.dataset.it)||SHOP.find(x=>x.id===b.dataset.it);toggleItem(it);save();viewUnicornio()});
+  document.querySelectorAll("[data-buy]").forEach(b=>b.onclick=()=>{const it=SHOP.find(x=>x.id===b.dataset.buy);if(!it||S.owned[it.id]||S.gems<it.price)return;S.gems-=it.price;S.owned[it.id]=true;if(!isOn(it))toggleItem(it);save();renderHud();confetti();say("¡Compraste "+it.name+"!");toast("¡Nuevo: "+it.name+"!");viewUnicornio()});
+  const us=$("#uniSave");if(us)us.onclick=()=>{S.uniName=$("#uniName").value.trim().slice(0,16);save();toast("¡Listo! Tu unicornio se llama "+(S.uniName||"…"));viewUnicornio()};
 }
-function isOn(it){const l=S.look;if(it.type==="mane")return l.mane===it.val;if(it.type==="body")return l.body===it.val;if(it.type==="horn")return l.horn==="gold";
-  if(it.type==="wings")return!!l.wings;if(it.type==="crown")return!!l.crown;if(it.type==="deco")return!!l.deco;if(it.type==="bg")return!!l.bg;return false}
-function toggleItem(it){const l=S.look,on=isOn(it);
-  if(it.type==="mane")l.mane=on?"#ff8fc7":it.val;else if(it.type==="body")l.body=on?"#ffffff":it.val;else if(it.type==="horn")l.horn=on?"plain":"gold";
-  else l[it.type]=!on;}
 function viewPapas(){
   let h=`<h1>👨‍👩‍👧 Panel de papás</h1><p class="muted small" style="margin:0">Datos de clase actualizados: ${DATA.lastUpdate}. El progreso se guarda en este dispositivo.</p>`;
   h+=`<div class="card"><h2>Nombre</h2><label class="f">Nombre que verá en el saludo (solo se guarda en este dispositivo)<input type="text" id="nm" value="${esc(S.name)}" maxlength="20"></label><div class="row" style="margin-top:8px"><button class="btn small" id="nmSave">Guardar nombre</button></div></div>`;
+  const tot=Object.values(S.prog).reduce((a,p)=>a+p.tot,0),okk=Object.values(S.prog).reduce((a,p)=>a+p.ok,0);
+  h+=`<div class="card"><h2>📊 Resumen</h2><p style="margin:0">Respuestas: <b>${okk}</b> bien de <b>${tot}</b> · Días: <b>${Object.keys(S.days).length}</b> · Estrellas: <b>${S.stars}</b> · Gemas: <b>${S.gems}</b> · Stickers: <b>${Object.keys(S.stickers).length}/${STICKERS.length}</b></p></div>`;
   h+=`<div class="card"><h2>📅 Lecciones de Matemática</h2>`+DATA.events.slice().sort((a,b)=>a.date<b.date?1:-1).map(e=>{const n=daysUntil(e.date);
     return `<div class="event" style="margin:10px 0"><div class="cal"><b>${parseD(e.date).getDate()}</b>${MES[parseD(e.date).getMonth()]}</div><div><b>${esc(e.title)}</b> <span class="tag">${n<0?"pasó":n===0?"hoy":"en "+n+" días"}</span><br><span class="small">${esc(e.detail)}</span><br><span class="small muted">Juegos: ${e.skills.map(s=>GAMES[s].n).join(", ")}</span></div></div>`}).join("")+`</div>`;
   h+=`<div class="card"><h2>📚 Temas del quimestre</h2><ul style="margin:0;padding-left:22px;font-size:17px">${DATA.temas.map(t=>`<li>${esc(t)}</li>`).join("")}</ul></div>`;
-  h+=`<div class="card"><h2>📈 Cómo va</h2><table class="prog"><tr><th>Juego</th><th>Nivel</th><th>Últimas</th><th>Total</th></tr>`+Object.entries(GAMES).map(([id,g])=>{const p=S.prog[id],a=acc(id);
-    return `<tr><td>${g.em} ${g.n}</td><td>${p?p.lv:1}</td><td>${a<0?"—":Math.round(a*100)+"%"}</td><td>${p?p.ok+"/"+p.tot:"—"}</td></tr>`}).join("")+`</table>
-    <p class="small muted">Nivel 1: números hasta 20 · Nivel 2: hasta 50 · Nivel 3: hasta 99. Sube solo con 9 de 10 bien; baja si tiene menos de 5 de 10.</p></div>`;
+  h+=`<div class="card"><h2>📈 Cómo va en cada juego</h2><table class="prog"><tr><th>Juego</th><th>Nivel</th><th>Últimas</th><th>Total</th></tr>`+Object.entries(GAMES).map(([id,g])=>{const p=S.prog[id],a=acc(id);
+    return `<tr><td>${g.em} ${g.n}</td><td>${p?p.lv:1}</td><td style="${a>=0&&a<.6?"color:#e5484d;font-weight:800":""}">${a<0?"—":Math.round(a*100)+"%"}</td><td>${p?p.ok+"/"+p.tot:"—"}</td></tr>`}).join("")+`</table>
+    <p class="small muted">En rojo: menos de 60% en sus últimas respuestas. La «Misión extra» practica más esos juegos. Nivel 1: números hasta 20 · Nivel 2: hasta 50 · Nivel 3: hasta 99.</p></div>`;
   h+=`<div class="card"><h2>🔊 Voz</h2><label class="f">Voz en español<select id="vSel"><option value="">Automática (${esc((bestVoice()||{}).name||"ninguna encontrada")})</option>${VOICES.map(v=>`<option ${S.voice===v.name?"selected":""}>${esc(v.name)}</option>`).join("")}</select></label>
     <label class="f" style="margin-top:8px">Velocidad: <span id="rL">${Math.round(S.rate*100)}%</span><input type="range" id="rate" min="0.6" max="1.1" step="0.05" value="${S.rate}"></label>
     <label class="row small" style="margin-top:8px"><input type="checkbox" id="auto" ${S.readAuto?"checked":""}> Leer cada pregunta en voz alta</label>
@@ -608,25 +913,26 @@ function viewPapas(){
   $("#vSel").onchange=e=>{S.voice=e.target.value;save()};
   $("#rate").oninput=e=>{S.rate=+e.target.value;$("#rL").textContent=Math.round(S.rate*100)+"%";save()};
   $("#auto").onchange=e=>{S.readAuto=e.target.checked;save()};
-  $("#vTest").onclick=()=>say("¡Hola! Vamos a jugar con los números. Setenta y cuatro, ochenta y nueve, noventa.");
-  $("#bkDown").onclick=()=>{try{const blob=new Blob([JSON.stringify({app:"reino-unicornio",v:1,saved:new Date().toISOString(),state:S},null,1)],{type:"application/json"});
+  $("#vTest").onclick=()=>say("¡Hola! Vamos a jugar con los números. Siete más dos es nueve. Ocho menos tres es cinco.");
+  $("#bkDown").onclick=()=>{try{const blob=new Blob([JSON.stringify({app:"reino-unicornio",v:2,saved:new Date().toISOString(),state:S},null,1)],{type:"application/json"});
     const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="respaldo-reino-unicornio-"+today()+".json";document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500)}catch(e){toast("No se pudo descargar")}};
   $("#bkUp").onchange=e=>{const f=e.target.files&&e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const d=JSON.parse(r.result);if(d.app!=="reino-unicornio"||!d.state)throw 0;
-      S=Object.assign(defaultState(),d.state);S.look=Object.assign(defaultState().look,S.look||{});save();renderHud();toast("Respaldo cargado");viewPapas()}catch(err){toast("Ese archivo no es un respaldo válido")}};r.readAsText(f)};
+      S=normalize(d.state);save();renderHud();toast("Respaldo cargado");viewPapas()}catch(err){toast("Ese archivo no es un respaldo válido")}};r.readAsText(f)};
   let armed=false;$("#reset").onclick=()=>{if(!armed){armed=true;$("#resetMsg").textContent="Toca otra vez para borrar todo. No se puede deshacer.";setTimeout(()=>{armed=false;const m=$("#resetMsg");if(m)m.textContent=""},5000);return}
     const nm=S.name;S=defaultState();S.name=nm;save();renderHud();toast("Progreso borrado");viewPapas()};
   $("#back").onclick=()=>setView("hoy");
 }
-function setView(v){VIEW=v;if(v!=="game")GAME=null;render();window.scrollTo(0,0)}
+function setView(v){VIEW=v;if(v!=="game")GAME=null;try{speechSynthesis.cancel()}catch(e){}render();window.scrollTo(0,0)}
 function render(){
   renderHud();
-  document.querySelectorAll("nav.tabs button").forEach(b=>b.classList.toggle("on",b.dataset.view===VIEW));
+  document.querySelectorAll("nav.tabs button").forEach(b=>b.classList.toggle("on",b.dataset.view===VIEW||(VIEW==="arcade"&&b.dataset.view==="magia")));
   if(VIEW==="game"&&GAME)return viewGame();
-  ({hoy:viewHoy,juegos:viewJuegos,unicornio:viewUnicornio,papas:viewPapas}[VIEW]||viewHoy)();
+  if(VIEW==="arcade")return;
+  ({hoy:viewHoy,juegos:viewJuegos,magia:viewMagia,unicornio:viewUnicornio,papas:viewPapas}[VIEW]||viewHoy)();
 }
-document.querySelectorAll("nav.tabs button").forEach(b=>b.onclick=()=>{try{speechSynthesis.cancel()}catch(e){}setView(b.dataset.view)});
+document.querySelectorAll("nav.tabs button").forEach(b=>b.onclick=()=>setView(b.dataset.view));
 $("#hudPapas").onclick=()=>setView("papas");
-window.__ru={G,GAMES,MISSIONS,startGame,get S(){return S},get GAME(){return GAME},words,setView,missionsToday};
+window.__ru={G,GAMES,MISSIONS,SHOP,STICKERS,startGame,startArcade,startExtra,get S(){return S},get GAME(){return GAME},words,setView,unicornSVG};
 render();
 </script>
 </body>
