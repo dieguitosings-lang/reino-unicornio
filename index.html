@@ -250,7 +250,7 @@ function loadVoices(){try{VOICES=(speechSynthesis.getVoices()||[]).filter(v=>/^e
 try{loadVoices();speechSynthesis.addEventListener&&speechSynthesis.addEventListener("voiceschanged",loadVoices)}catch(e){}
 function bestVoice(){
   if(S.voice){const v=VOICES.find(v=>v.name===S.voice);if(v)return v}
-  const pref=[/google.*espa/i,/paulina|m[oó]nica|sabina|helena|elvira|dalia|lupe|pe[ñn]elope/i,/natural|neural|online/i,/es-(US|MX|419)/i,/es/i];
+  const pref=[/google.*estados unidos/i,/es-(US|MX|419)/i,/google.*espa/i,/paulina|m[oó]nica|sabina|helena|elvira|dalia|lupe|pe[ñn]elope/i,/natural|neural|online/i,/es-(US|MX|419)/i,/es/i];
   for(const p of pref){const v=VOICES.find(v=>p.test(v.name)||p.test(v.lang));if(v)return v}
   return null;
 }
